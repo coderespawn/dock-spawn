@@ -1,0 +1,11 @@
+
+class DockManagerContext {
+  DockModel model;
+  DockManager dockManager;
+  DocumentManagerContainer documentManagerView;
+
+  DockManagerContext(this.dockManager) {
+    model = new DockModel();
+    documentManagerView = new DocumentManagerContainer(dockManager);
+  }
+}
