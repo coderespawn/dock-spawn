@@ -52,14 +52,23 @@ class SplitterBar {
       
       if (!continueProcessing) return;
     }
-    
+
     if (stackedVertical) {
-      previousContainer.height = newPreviousPanelSize;
-      nextContainer.height = newNextPanelSize;
+      previousContainer.resize(previousContainer.width, newPreviousPanelSize);
+      nextContainer.resize(nextContainer.width, newNextPanelSize);
     } else {
-      previousContainer.width = newPreviousPanelSize;
-      nextContainer.width = newNextPanelSize;
+      previousContainer.resize(newPreviousPanelSize, previousContainer.height);
+      nextContainer.resize(newNextPanelSize, nextContainer.height);
     }
+    
+//    
+//    if (stackedVertical) {
+//      previousContainer.height = newPreviousPanelSize;
+//      nextContainer.height = newNextPanelSize;
+//    } else {
+//      previousContainer.width = newPreviousPanelSize;
+//      nextContainer.width = newNextPanelSize;
+//    }
   }
   
   void _startDragging(MouseEvent e) {

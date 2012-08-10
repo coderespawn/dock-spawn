@@ -8,11 +8,13 @@ class TabHandle {
   DivElement elementCloseButton;
   UndockInitiator undockInitiator;
   TabPage parent;
+  var undockHandler;
 
   var mouseClickHandler;  // Button click handler for the tab handle
   var closeButtonHandler; // Button click handler for the close button
   
   TabHandle(this.parent) {
+    undockHandler = _performUndock;
     elementBase = new DivElement();
     elementText = new DivElement();
     elementCloseButton = new DivElement();
@@ -37,7 +39,7 @@ class TabHandle {
     
     _bringToFront(elementBase);
     
-    undockInitiator = new UndockInitiator(elementBase, performUndock);
+    undockInitiator = new UndockInitiator(elementBase, undockHandler);
     undockInitiator.enabled = true;
 
     mouseClickHandler = onMouseClicked;
@@ -57,7 +59,7 @@ class TabHandle {
     elementCloseButton = null;
   }
 
-  Dialog performUndock(MouseEvent e, Point dragOffset) {
+  Dialog _performUndock(MouseEvent e, Point dragOffset) {
     if (parent.container.containerType == "panel") {
       undockInitiator.enabled = false;
       PanelContainer panel = parent.container;

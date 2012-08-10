@@ -36,7 +36,7 @@ class Dialog {
     elementDialog.on.mouseDown.add(mouseDownHandler);
     
     
-    resize(500, 400);
+    resize(panel.elementPanel.$dom_clientWidth, panel.elementPanel.$dom_clientHeight);
     bringToFront();
   }
   

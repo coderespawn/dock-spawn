@@ -155,9 +155,11 @@ class DockLayoutEngine {
       referenceParent.performLayout();
       referenceParent.container.setActiveChild(newNode.container);
     }
-
-    debug_DumpTree(dockManager.context.model.rootNode);
-
+    
+    // force resize the panel
+    int containerWidth = newNode.container.containerElement.$dom_clientWidth;
+    int containerHeight = newNode.container.containerElement.$dom_clientHeight;
+    newNode.container.resize(containerWidth, containerHeight);
   }
   
   void _forceResizeCompositeContainer(IDockContainer container) {

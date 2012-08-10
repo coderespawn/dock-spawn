@@ -1,0 +1,10 @@
+name: dock-spawn
+
+description: 
+	Dock Spawn is a Dock Layout Engine that aids in creating flexible user interface by enabling
+	a panel to be docked anywhere in the screen.  Existing panels can be pulled out of their
+	dock positions and then docked elsewhere.  Panels could also be docked within other panels 
+	thereby creating an hierarcy of arbitrary complexity.  The look and feel is similar 
+	to Visual Studio IDE.
+	
+version: 1.0.0-beta

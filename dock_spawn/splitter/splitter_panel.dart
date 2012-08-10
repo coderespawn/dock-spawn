@@ -99,11 +99,11 @@ class SplitterPanel {
     
     // Adjust the fixed dimension that is common to all (i.e. width, if stacked vertical; height, if stacked horizontally)
     for (int i = 0; i < childContainers.length; i++) {
-      var container = childContainers[i];
+      var childContainer = childContainers[i];
       if (stackedVertical) {
-        container.width = width;
+        childContainer.width = width;
       } else {
-        container.height = height;
+        childContainer.height = height;
       }
       
       if (i < spiltterBars.length) {
@@ -140,10 +140,10 @@ class SplitterPanel {
     // Update the size with this multiplier
     int updatedTotalChildPanelSize = 0;
     for (int i = 0; i < childContainers.length; i++) {
-      var container = childContainers[i];
+      var child = childContainers[i];
       int original = stackedVertical ? 
-          container.containerElement.$dom_clientHeight : 
-          container.containerElement.$dom_clientWidth;
+          child.containerElement.$dom_clientHeight : 
+          child.containerElement.$dom_clientWidth;
 
       int newSize = (original * scaleMultiplier).toInt();
       updatedTotalChildPanelSize += newSize;
@@ -155,9 +155,9 @@ class SplitterPanel {
       
       // Set the size of the panel
       if (stackedVertical) {
-        container.height = newSize;
+        child.resize(child.width, newSize);
       } else {
-        container.width = newSize;
+        child.resize(newSize, child.height);
       }
     }
     

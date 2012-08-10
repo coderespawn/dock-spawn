@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>DockManager</title>
+    <!-- Dock Spawn -->
+    <link rel="stylesheet" href="../dock_spawn/resources/css/font-awesome.css">
+    <link rel="stylesheet" href="../dock_spawn/resources/css/dock-manager.css">
+    <link rel="stylesheet" href="resources/ide/css/dock_spawn_demo_ide.css">
+    
+    <!-- Code Mirror Source Code Editor -->
+	<link rel="stylesheet" href="resources/codemirror/lib/codemirror.css">
+    <script src="resources/codemirror/lib/codemirror.js"></script>
+	<script src="resources/codemirror/mode/clike/clike.js"></script>
+	
+    <!-- JS Tree -->
+	<script type="text/javascript" src="resources/jstree/_lib/jquery.js"></script>
+	<script type="text/javascript" src="resources/jstree/_lib/jquery.cookie.js"></script>
+	<script type="text/javascript" src="resources/jstree/_lib/jquery.hotkeys.js"></script>
+	<script type="text/javascript" src="resources/jstree/jquery.jstree.js"></script>
+    
+  </head>
+  <body>
+	<div class="demo-header" id="header" style="width:100%">
+		<div class="demo-header-title">Dock Spawn IDE Demo</div>
+		<div class="demo-header-description">Pull a panel out from it's title bar and dock it elsewhere</div>
+	</div>
+	
+    <div id="my_dock_manager" class="my-dock-manager">
+    </div>
+    <div id="properties_window" caption="Properties" class="properties-window"></div>
+    <div id="problems_window" caption="Problems" class="problems-window"></div>
+    <div id="editor1_window" caption="Steering.h" class="editor1-window editor-host"></div>
+    <div id="editor2_window" caption="Steering.cpp" class="editor2-window editor-host"></div>
+    <div id="output_window" caption="Output" class="output-window editor-host"></div>
+    
+    <div id="solution_window" caption="Solution Explorer" icon="icon-circle-arrow-right" class="solution-window">
+		<ul>
+			<li id="solution_window_1">
+				<a href="#">Test Project</a>
+				<ul>
+					<li id="phtml_2"><a href="#">Source File 1</a></li>
+					<li id="phtml_3"><a href="#">Header File 1</a></li>
+				</ul>
+			</li>
+			<li id="solution_window_2">
+				<a href="#">My Project 2</a>
+			</li>
+		</ul>
+	</div>
+	    
+    <div id="toolbox_window" caption="Toolbox" class="toolbox-window">
+    	<ul>
+			<li id="toolbox_window_1"><a href="#">Tool 1</a></li>
+			<li id="toolbox_window_2"><a href="#">Tool 2</a></li>
+			<li id="toolbox_window_3"><a href="#">Tool 3</a></li>
+			<li id="toolbox_window_4"><a href="#">Tool 4</a></li>
+			<li id="toolbox_window_5"><a href="#">Tool 5</a></li>
+		</ul>
+    </div>
+    <div id="outline_window" caption="Outline" class="outline-window">
+    </div>
+    
+    
+    <script src="resources/ide/js/sample-source.js"></script>
+    <script src="resources/ide/js/demo-ide.js"></script>
+
+    <script type="application/dart" src="dock_spawn_demo_ide.dart"></script>
+    <script src="http://dart.googlecode.com/svn/branches/bleeding_edge/dart/client/dart.js"></script>
+    
+	<!--
+	-->
+  </body>
+</html>

@@ -7,8 +7,6 @@
 	background-color: #333; 
 	height: 25px;
 	width: 100%;
-	/*border-top-right-radius: 10px; */
-	/*border-top-left-radius: 10px; */
 	overflow: hidden;
 }
 
@@ -174,7 +172,8 @@
 
 .tab-handle {
 	position: relative;
-	background-color: #F60; 
+	background-color: #05B; 
+	color:#ccf;
 	height: 22px;
 	float: left;
 	overflow: hidden;
@@ -183,10 +182,12 @@
 }
 .tab-handle:hover {
 	background-color: #F90;
+	color:#400;
 }
 
 .tab-handle-selected {
 	background-color: #F90;
+	color:#400;
 }
 
 .tab-handle-text {
