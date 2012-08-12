@@ -26,6 +26,7 @@
 *.tar
 *.zip
 *.dart.js
+*.dart.js.map
 
 # Logs and databases #
 ######################

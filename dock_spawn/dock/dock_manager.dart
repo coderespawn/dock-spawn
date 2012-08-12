@@ -189,7 +189,7 @@ class DockManager implements DialogEventListener {
    * Undocks a panel and converts it into a floating dialog window
    * It is assumed that only leaf nodes (panels) can be undocked
    */ 
-  Dialog requestUndockToDialog(IDockContainer container, MouseEvent event, Point dragOffset) {
+  Dialog requestUndockToDialog(IDockContainer container, MouseEvent event, Point2 dragOffset) {
     DockNode node = _findNodeFromContainer(container);
     layoutEngine.undock(node);
 

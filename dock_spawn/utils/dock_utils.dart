@@ -5,14 +5,14 @@ int getPixels(String pixels) {
 }
 
 
-Point getMousePosition(MouseEvent e, Element element) {
+Point2 getMousePosition(MouseEvent e, Element element) {
   int parentOffsetX = element.$dom_offsetLeft;
   int parentOffsetY = element.$dom_offsetTop;
   int parentWidth = element.$dom_clientWidth;
   int parentHeight = element.$dom_clientHeight;
   int x = e.x - parentOffsetX;
   int y = e.y - parentOffsetY;
-  return new Point(x, y);
+  return new Point2(x, y);
 }
 
 void disableGlobalTextSelection() {

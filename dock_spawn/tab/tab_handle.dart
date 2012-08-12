@@ -59,7 +59,7 @@ class TabHandle {
     elementCloseButton = null;
   }
 
-  Dialog _performUndock(MouseEvent e, Point dragOffset) {
+  Dialog _performUndock(MouseEvent e, Point2 dragOffset) {
     if (parent.container.containerType == "panel") {
       undockInitiator.enabled = false;
       PanelContainer panel = parent.container;

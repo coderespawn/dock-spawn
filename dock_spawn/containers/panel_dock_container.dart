@@ -118,7 +118,7 @@ class PanelContainer implements IDockContainer {
   /**
    * Undocks the panel and and converts it to a dialog box
    */
-  Dialog performUndockToDialog(MouseEvent e, Point dragOffset) {
+  Dialog performUndockToDialog(MouseEvent e, Point2 dragOffset) {
     undockInitiator.enabled = false;
     return dockManager.requestUndockToDialog(this, e, dragOffset);
   }

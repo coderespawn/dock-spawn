@@ -10,8 +10,8 @@ class ResizableContainer implements IDockContainer {
   Dialog dialog;
   List<ResizeHandle> resizeHandles;
   
-  Point dragOffset;
-  Point previousMousePosition;
+  Point2 dragOffset;
+  Point2 previousMousePosition;
   
   ResizableContainer(this.dialog, this.delegate, this.topLevelElement) {
     containerType = delegate.containerType;
@@ -137,7 +137,7 @@ class ResizableContainer implements IDockContainer {
   }
 
   void onMouseMoved(ResizeHandle handle, MouseEvent e) {
-    Point currentMousePosition = new Point(e.pageX, e.pageY);
+    Point2 currentMousePosition = new Point2(e.pageX, e.pageY);
     int dx = (currentMousePosition.x - previousMousePosition.x).toInt();
     int dy = (currentMousePosition.y - previousMousePosition.y).toInt();
     _performDrag(handle, dx, dy);
@@ -145,7 +145,7 @@ class ResizableContainer implements IDockContainer {
   }
   
   void onMouseDown(ResizeHandle handle, MouseEvent event) {
-    previousMousePosition = new Point(event.pageX, event.pageY);
+    previousMousePosition = new Point2(event.pageX, event.pageY);
     window.on.mouseMove.add(handle.mouseMoveHandler);
     window.on.mouseUp.add(handle.mouseUpHandler);
 

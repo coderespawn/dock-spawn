@@ -87,9 +87,9 @@ class SplitterPanel {
       }
       
       if (stackedVertical) {
-        child.containerElement.style.height = "${size}px";
+        child.resize(child.width, size.toInt());
       } else {
-        child.containerElement.style.width = "${size}px";
+        child.resize(size.toInt(), child.height);
       }
     });
   }

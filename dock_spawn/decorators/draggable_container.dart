@@ -11,8 +11,8 @@ class DraggableContainer implements IDockContainer {
   var mouseUpHandler;
   var mouseMoveHandler;
   
-  Point dragOffset;
-  Point previousMousePosition;
+  Point2 dragOffset;
+  Point2 previousMousePosition;
   
   DraggableContainer(this.dialog, this.delegate, this.topLevelElement, this.dragHandle) {
     containerType = delegate.containerType;
@@ -83,7 +83,7 @@ class DraggableContainer implements IDockContainer {
   
   void onMouseDown(MouseEvent event) {
     _startDragging(event);
-    previousMousePosition = new Point(event.pageX, event.pageY);
+    previousMousePosition = new Point2(event.pageX, event.pageY);
     window.on.mouseMove.add(mouseMoveHandler);
     window.on.mouseUp.add(mouseUpHandler);
   }
@@ -109,7 +109,7 @@ class DraggableContainer implements IDockContainer {
   }
 
   void onMouseMove(MouseEvent event) {
-    Point currentMousePosition = new Point(event.pageX, event.pageY);
+    Point2 currentMousePosition = new Point2(event.pageX, event.pageY);
     int dx = (currentMousePosition.x - previousMousePosition.x).toInt();
     int dy = (currentMousePosition.y - previousMousePosition.y).toInt();
     _performDrag(dx, dy);
