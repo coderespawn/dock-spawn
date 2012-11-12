@@ -51,18 +51,11 @@ abstract class SplitterDockContainer implements IDockContainer {
   }
 
   int get width() {
-    return splitterPanel.panelElement.$dom_clientWidth;
-  }
-  
-  void set width(int value) {
-    splitterPanel.resize(value, height);
+    return splitterPanel.panelElement.clientWidth;
   }
   
   int get height() {
-    return splitterPanel.panelElement.$dom_clientHeight;
+    return splitterPanel.panelElement.clientHeight;
   }
 
-  void set height(int value) {
-    splitterPanel.resize(width, value);
-  }
 }

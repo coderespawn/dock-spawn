@@ -15,7 +15,7 @@ class FillDockContainer implements IDockContainer {
     element.classes.add("dock-container");
     element.classes.add("dock-container-fill");
     
-    tabHost = new TabHost(tabStripDirection: tabOrientation);
+    tabHost = new TabHost(tabOrientation);
     element.nodes.add(tabHost.hostElement);
   }
 
@@ -54,20 +54,11 @@ class FillDockContainer implements IDockContainer {
   }
   
   int get width() {
-    return element.$dom_clientWidth;
-  }
-  void set width(int value) {
-    element.style.width = "${value}px";
-    tabHost.resize(value, height);
+    return element.clientWidth;
   }
 
   int get height() {
-    return element.$dom_clientHeight;
+    return element.clientHeight;
   }
-  void set height(int value) {
-    element.style.height = "${value}px";
-    tabHost.resize(width, value);
-  }
-  
 
 }

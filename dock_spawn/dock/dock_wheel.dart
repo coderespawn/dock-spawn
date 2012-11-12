@@ -68,20 +68,20 @@ class DockWheel {
       return;
     }
     Element element = activeNode.container.containerElement;
-    int containerWidth = element.$dom_clientWidth;
-    int containerHeight = element.$dom_clientHeight;
-    int baseX = (containerWidth / 2).toInt() + element.$dom_offsetLeft;
-    int baseY = (containerHeight / 2).toInt() + element.$dom_offsetTop;
+    int containerWidth = element.clientWidth;
+    int containerHeight = element.clientHeight;
+    int baseX = (containerWidth / 2).toInt() + element.offsetLeft;
+    int baseY = (containerHeight / 2).toInt() + element.offsetTop;
     elementMainWheel.style.left = "${baseX}px";
     elementMainWheel.style.top = "${baseY}px";
     
     // The positioning of the main dock wheel buttons is done automatically through CSS
     // Dynamically calculate the positions of the buttons on the extreme sides of the dock manager
     num sideMargin = 20;
-    num dockManagerWidth = dockManager.element.$dom_clientWidth;
-    num dockManagerHeight = dockManager.element.$dom_clientHeight;
-    num dockManagerOffsetX = dockManager.element.$dom_offsetLeft;
-    num dockManagerOffsetY = dockManager.element.$dom_offsetTop;
+    num dockManagerWidth = dockManager.element.clientWidth;
+    num dockManagerHeight = dockManager.element.clientHeight;
+    num dockManagerOffsetX = dockManager.element.offsetLeft;
+    num dockManagerOffsetY = dockManager.element.offsetTop;
 
     elementMainWheel.remove();
     elementSideWheel.remove();
@@ -97,8 +97,8 @@ class DockWheel {
   
   void _setWheelButtonPosition(String wheelId, num left, num top) {
     DockWheelItem item = wheelItems[wheelId];
-    num itemHalfWidth = item.element.$dom_clientWidth / 2;
-    num itemHalfHeight = item.element.$dom_clientHeight / 2;
+    num itemHalfWidth = item.element.clientWidth / 2;
+    num itemHalfHeight = item.element.clientHeight / 2;
     
     int x = (left - itemHalfWidth).toInt();
     int y = (top - itemHalfHeight).toInt();
@@ -116,7 +116,7 @@ class DockWheel {
     elementPanelPreview.remove();
     
     // deactivate all wheels
-    wheelItems.getValues().forEach((item) => item.active = false);
+    wheelItems.values.forEach((item) => item.active = false);
   }
   
   void onMouseOver(DockWheelItem wheelItem, MouseEvent e) {
@@ -174,7 +174,7 @@ class DockWheel {
    * Returns the wheel item which has the mouse cursor on top of it
    */
   DockWheelItem _getActiveWheelItem() {
-    for (var wheelItem in wheelItems.getValues()) {
+    for (var wheelItem in wheelItems.values) {
       if (wheelItem.active) {
         return wheelItem;
       }

@@ -84,11 +84,11 @@ class PanelContainer implements IDockContainer {
     elementContentHost.classes.add("panel-content");
     
     // set the size of the dialog elements based on the panel's size
-    int panelWidth = elementContent.$dom_clientWidth; 
-    int panelHeight = elementContent.$dom_clientHeight; 
-    int titleHeight = elementTitle.$dom_clientHeight; 
-    width = panelWidth;
-    height = panelHeight + titleHeight;
+    int panelWidth = elementContent.clientWidth; 
+    int panelHeight = elementContent.clientHeight; 
+    int titleHeight = elementTitle.clientHeight; 
+    _setPanelDimensions(panelWidth, panelHeight + titleHeight);
+    
     
     // Add the panel to the body
     window.document.body.nodes.add(elementPanel);
@@ -137,33 +137,33 @@ class PanelContainer implements IDockContainer {
   }
   
   int get width() {
-    return elementPanel.$dom_clientWidth;
+    return elementPanel.clientWidth;
   }
   
-  void set width(int value) {
-    elementTitle.style.width = "${value}px";
-    elementContentHost.style.width = "${value}px";
-    elementContent.style.width = "${value}px";
-    elementPanel.style.width = "${value}px";
-  }
 
   int get height() {
-    int containerHeight = elementContent.$dom_clientHeight;
-    int titleHeight = elementTitle.$dom_clientHeight;
+    int containerHeight = elementContent.clientHeight;
+    int titleHeight = elementTitle.clientHeight;
     return titleHeight + containerHeight;
   }
   
-  void set height(int value) {
-    int titleBarHeight = elementTitle.$dom_clientHeight;
-    int contentHeight = value - titleBarHeight;
-    elementContentHost.style.height = "${contentHeight}px";
-    elementContent.style.height = "${contentHeight}px";
-    elementPanel.style.height = "${value}px";
-  }
   
   void resize(int _width, int _height) {
-    width = _width;
-    height = _height;
+    _setPanelDimensions(_width, _height);
+  }
+  
+  void _setPanelDimensions(int _width, int _height) {
+    elementTitle.style.width = "${_width}px";
+    elementContentHost.style.width = "${_width}px";
+    elementContent.style.width = "${_width}px";
+    elementPanel.style.width = "${_width}px";
+    
+    int titleBarHeight = elementTitle.clientHeight;
+    int contentHeight = _height - titleBarHeight;
+    elementContentHost.style.height = "${contentHeight}px";
+    elementContent.style.height = "${contentHeight}px";
+    elementPanel.style.height = "${_height}px";
+    
   }
   
   void setTitle(String _title) {

@@ -31,15 +31,15 @@ class SplitterBar {
   }
 
   void onMouseMoved(MouseEvent e) {
-    int dx = e.x - previousMouseEvent.x;
-    int dy = e.y - previousMouseEvent.y;
+    int dx = e.pageX - previousMouseEvent.pageX;
+    int dy = e.pageY - previousMouseEvent.pageY;
     _performDrag(dx, dy);
     previousMouseEvent = e;
   }
   
   void _performDrag(int dx, int dy) {
-    int previousPanelSize = stackedVertical ? previousContainer.containerElement.$dom_clientHeight : previousContainer.containerElement.$dom_clientWidth; 
-    int nextPanelSize = stackedVertical ? nextContainer.containerElement.$dom_clientHeight : nextContainer.containerElement.$dom_clientWidth;
+    int previousPanelSize = stackedVertical ? previousContainer.containerElement.clientHeight : previousContainer.containerElement.clientWidth; 
+    int nextPanelSize = stackedVertical ? nextContainer.containerElement.clientHeight : nextContainer.containerElement.clientWidth;
     int deltaMovement = stackedVertical ? dy : dx;
     int newPreviousPanelSize = previousPanelSize + deltaMovement; 
     int newNextPanelSize = nextPanelSize - deltaMovement;
@@ -60,15 +60,7 @@ class SplitterBar {
       previousContainer.resize(newPreviousPanelSize, previousContainer.height);
       nextContainer.resize(newNextPanelSize, nextContainer.height);
     }
-    
-//    
-//    if (stackedVertical) {
-//      previousContainer.height = newPreviousPanelSize;
-//      nextContainer.height = newNextPanelSize;
-//    } else {
-//      previousContainer.width = newPreviousPanelSize;
-//      nextContainer.width = newNextPanelSize;
-//    }
+
   }
   
   void _startDragging(MouseEvent e) {

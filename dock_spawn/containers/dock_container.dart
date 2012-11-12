@@ -11,8 +11,8 @@ interface IDockContainer {
   void loadState(Map<String, Object> state);
   Element get containerElement();
   String containerType;
-  int width;
-  int height;
+  int get width();
+  int get height();
   String name;
   
   /** 

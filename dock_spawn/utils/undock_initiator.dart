@@ -56,7 +56,8 @@ class UndockInitiator {
     Point2 position = new Point2(e.pageX, e.pageY);
     num dx = position.x - dragStartPosition.x;
     num dy = position.y - dragStartPosition.y;
-    num distance = Math.sqrt(dx * dx + dy * dy);
+    num distance = sqrt(dx * dx + dy * dy);
+    
     if (distance > thresholdPixels) {
       enabled = false;
       _requestUndock(e);
@@ -64,8 +65,8 @@ class UndockInitiator {
   }
   
   void _requestUndock(MouseEvent e) {
-    num dragOffsetX = dragStartPosition.x - element.$dom_offsetLeft;
-    num dragOffsetY = dragStartPosition.y - element.$dom_offsetTop;
+    num dragOffsetX = dragStartPosition.x - element.offsetLeft;
+    num dragOffsetY = dragStartPosition.y - element.offsetTop;
     Point2 dragOffset = new Point2(dragOffsetX, dragOffsetY);
     listener(e, dragOffset);
   }

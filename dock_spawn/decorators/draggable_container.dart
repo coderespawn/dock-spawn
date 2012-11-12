@@ -22,8 +22,8 @@ class DraggableContainer implements IDockContainer {
     mouseMoveHandler = onMouseMove;
     
     dragHandle.on.mouseDown.add(mouseDownHandler);
-    topLevelElement.style.marginLeft = "${topLevelElement.$dom_offsetLeft}";
-    topLevelElement.style.marginTop = "${topLevelElement.$dom_offsetTop}";
+    topLevelElement.style.marginLeft = "${topLevelElement.offsetLeft}";
+    topLevelElement.style.marginTop = "${topLevelElement.offsetTop}";
   }
 
   void destroy() {
@@ -47,15 +47,9 @@ class DraggableContainer implements IDockContainer {
   int get width() {
     return delegate.width;
   }
-  void set width(int value) {
-    delegate.width = value;
-  }
 
   int get height() {
     return delegate.height;
-  }
-  void set height(int value) {
-    delegate.height = value;
   }
 
   String get name() {

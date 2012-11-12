@@ -27,8 +27,8 @@ class TabPage {
     if (selected) {
       host.contentElement.nodes.add(containerElement);
       // force a resize again
-      int width = host.contentElement.$dom_clientWidth;
-      int height = host.contentElement.$dom_clientHeight;
+      int width = host.contentElement.clientWidth;
+      int height = host.contentElement.clientHeight;
       container.resize(width, height);
     } else {
       containerElement.remove();

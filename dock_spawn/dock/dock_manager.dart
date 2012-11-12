@@ -22,7 +22,7 @@ class DockManager implements DialogEventListener {
     context.model.documentManagerNode = documentNode;
     setRootNode(context.model.rootNode);
     // Resize the layout
-    resize(element.$dom_clientWidth, element.$dom_clientHeight);
+    resize(element.clientWidth, element.clientHeight);
     dockWheel = new DockWheel(this);
     layoutEngine = new DockLayoutEngine(this);
     
@@ -35,7 +35,7 @@ class DockManager implements DialogEventListener {
   }
   
   void invalidate() {
-    resize(element.$dom_clientWidth, element.$dom_clientHeight);
+    resize(element.clientWidth, element.clientHeight);
   }
     
   void resize(int width, int height) {
@@ -99,7 +99,7 @@ class DockManager implements DialogEventListener {
     DockNode bestMatch = null;
     
     while (stack.length > 0) {
-      var topNode = stack.last(); // peek
+      var topNode = stack.last; // peek
       stack.removeLast();         // pop
       
       if (isPointInsideNode(x, y, topNode)) {
@@ -113,42 +113,52 @@ class DockManager implements DialogEventListener {
     return bestMatch;
   }
   
+  /** Dock the [dialog] to the left of the [referenceNode] node */
   DockNode dockDialogLeft(DockNode referenceNode, Dialog dialog) {
     return _requestDockDialog(referenceNode, dialog, layoutEngine.dockLeft);
   }
 
+  /** Dock the [dialog] to the right of the [referenceNode] node */
   DockNode dockDialogRight(DockNode referenceNode, Dialog dialog) {
     return _requestDockDialog(referenceNode, dialog, layoutEngine.dockRight);
   }
 
+  /** Dock the [dialog] above the [referenceNode] node */
   DockNode dockDialogUp(DockNode referenceNode, Dialog dialog) {
     return _requestDockDialog(referenceNode, dialog, layoutEngine.dockUp);
   }
 
+  /** Dock the [dialog] below the [referenceNode] node */
   DockNode dockDialogDown(DockNode referenceNode, Dialog dialog) {
     return _requestDockDialog(referenceNode, dialog, layoutEngine.dockDown);
   }
 
+  /** Dock the [dialog] as a tab inside the [referenceNode] node */
   DockNode dockDialogFill(DockNode referenceNode, Dialog dialog) {
     return _requestDockDialog(referenceNode, dialog, layoutEngine.dockFill);
   }
 
+  /** Dock the [container] to the left of the [referenceNode] node */
   DockNode dockLeft(DockNode referenceNode, IDockContainer container, [num ratio]) {
     return _requestDockContainer(referenceNode, container, layoutEngine.dockLeft, ratio);
   }
 
+  /** Dock the [container] to the right of the [referenceNode] node */
   DockNode dockRight(DockNode referenceNode, IDockContainer container, [num ratio]) {
     return _requestDockContainer(referenceNode, container, layoutEngine.dockRight, ratio);
   }
 
+  /** Dock the [container] above the [referenceNode] node */
   DockNode dockUp(DockNode referenceNode, IDockContainer container, [num ratio]) {
     return _requestDockContainer(referenceNode, container, layoutEngine.dockUp, ratio);
   }
 
+  /** Dock the [container] below the [referenceNode] node */
   DockNode dockDown(DockNode referenceNode, IDockContainer container, [num ratio]) {
     return _requestDockContainer(referenceNode, container, layoutEngine.dockDown, ratio);
   }
 
+  /** Dock the [container] as a tab inside the [referenceNode] node */
   DockNode dockFill(DockNode referenceNode, IDockContainer container) {
     return _requestDockContainer(referenceNode, container, layoutEngine.dockFill, null);
   }
@@ -197,7 +207,7 @@ class DockManager implements DialogEventListener {
     var dialog = new Dialog(node.container, this);
 
     // Adjust the relative position
-    num dialogWidth = dialog.elementDialog.$dom_clientWidth;
+    num dialogWidth = dialog.elementDialog.clientWidth;
     if (dragOffset.x > dialogWidth) {
       dragOffset.x = 0.75 * dialogWidth;
     }
@@ -239,7 +249,7 @@ class DockManager implements DialogEventListener {
     stack.add(context.model.rootNode);
 
     while (stack.length > 0) {
-      var topNode = stack.last(); // peek
+      var topNode = stack.last; // peek
       stack.removeLast();         // pop
       
       if (topNode.container == container) {

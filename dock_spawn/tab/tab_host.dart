@@ -13,10 +13,10 @@ class TabHost {
   List<TabPage> pages;
   CreateTabPage createTabPage;  // Factory for creating tab pages
 
-  static final int DIRECTION_TOP = 0;
-  static final int DIRECTION_BOTTOM = 1;
-  static final int DIRECTION_LEFT = 2;
-  static final int DIRECTION_RIGHT = 3;
+  static const int DIRECTION_TOP = 0;
+  static const int DIRECTION_BOTTOM = 1;
+  static const int DIRECTION_LEFT = 2;
+  static const int DIRECTION_RIGHT = 3;
   
   // Indicates if the close button next to the tab handle should be displayed
   bool displayCloseButton;
@@ -70,8 +70,8 @@ class TabHost {
     hostElement.style.width = "${width}px";
     hostElement.style.height = "${height}px";
     
-    int tabHeight = tabListElement.$dom_clientHeight;
-    int separatorHeight = separatorElement.$dom_clientHeight;
+    int tabHeight = tabListElement.clientHeight;
+    int separatorHeight = separatorElement.clientHeight;
     int contentHeight = height - tabHeight - separatorHeight;
     contentElement.style.height = "${contentHeight}px";
     

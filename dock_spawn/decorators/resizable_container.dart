@@ -15,8 +15,8 @@ class ResizableContainer implements IDockContainer {
   
   ResizableContainer(this.dialog, this.delegate, this.topLevelElement) {
     containerType = delegate.containerType;
-    topLevelElement.style.marginLeft = "${topLevelElement.$dom_offsetLeft}";
-    topLevelElement.style.marginTop = "${topLevelElement.$dom_offsetTop}";
+    topLevelElement.style.marginLeft = "${topLevelElement.offsetLeft}";
+    topLevelElement.style.marginTop = "${topLevelElement.offsetTop}";
     _buildResizeHandles();
   }
   
@@ -91,16 +91,11 @@ class ResizableContainer implements IDockContainer {
   int get width() {
     return delegate.width;
   }
-  void set width(int value) {
-    delegate.width = value;
-  }
 
   int get height() {
     return delegate.height;
   }
-  void set height(int value) {
-    delegate.height = value;
-  }
+
   String get name() {
     return delegate.name;
   }
@@ -188,8 +183,8 @@ class ResizableContainer implements IDockContainer {
   void _resizeContainer(int leftDelta, int topDelta, int widthDelta, int heightDelta) {
     int left = getPixels(topLevelElement.style.marginLeft);
     int top = getPixels(topLevelElement.style.marginTop);
-    int targetWidth = topLevelElement.$dom_clientWidth;
-    int targetHeight = topLevelElement.$dom_clientHeight;
+    int targetWidth = topLevelElement.clientWidth;
+    int targetHeight = topLevelElement.clientHeight;
     left += leftDelta;
     top += topDelta;
     targetWidth += widthDelta;
@@ -197,8 +192,8 @@ class ResizableContainer implements IDockContainer {
     
     int minWidth = 50;  // TODO: Move to external configuration
     int minHeight = 50;  // TODO: Move to external configuration
-    targetWidth = Math.max(targetWidth, minWidth);
-    targetHeight = Math.max(targetHeight, minHeight);
+    targetWidth = max(targetWidth, minWidth);
+    targetHeight = max(targetHeight, minHeight);
     
     topLevelElement.style.marginLeft = "${left}px";
     topLevelElement.style.marginTop = "${top}px";
@@ -222,8 +217,8 @@ class ResizeHandle {
   bool corner = false;
   
   void adjustSize(Element container) {
-    int clientWidth = container.$dom_clientWidth;
-    int clientHeight = container.$dom_clientHeight;
+    int clientWidth = container.clientWidth;
+    int clientHeight = container.clientHeight;
     
     if (corner) {
       if (west) element.style.left = "0px";

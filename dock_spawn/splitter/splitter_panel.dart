@@ -32,7 +32,7 @@ class SplitterPanel {
       _insertContainerIntoPanel(previousContainer);
       panelElement.nodes.add(splitterBar.barElement);
     }
-    _insertContainerIntoPanel(childContainers.last());
+    _insertContainerIntoPanel(childContainers.last);
   }
 
   void performLayout(List<IDockContainer> children)  {
@@ -70,9 +70,9 @@ class SplitterPanel {
    * The percentage is specified in [ratio] and is between 0..1
    */ 
   void setContainerRatio(IDockContainer container, num ratio) {
-    num splitPanelSize = stackedVertical ? panelElement.$dom_clientHeight : panelElement.$dom_clientWidth;
+    num splitPanelSize = stackedVertical ? panelElement.clientHeight : panelElement.clientWidth;
     num newContainerSize = splitPanelSize * ratio;
-    int barSize = stackedVertical ? spiltterBars[0].barElement.$dom_clientHeight : spiltterBars[0].barElement.$dom_clientWidth;
+    int barSize = stackedVertical ? spiltterBars[0].barElement.clientHeight : spiltterBars[0].barElement.clientWidth;
 
     num otherPanelSizeQuota = splitPanelSize - newContainerSize - barSize * spiltterBars.length;
     num otherPanelScaleMultipler = otherPanelSizeQuota / splitPanelSize;
@@ -80,7 +80,7 @@ class SplitterPanel {
     childContainers.forEach((child) {
       num size;
       if (child != container) {
-        size = stackedVertical ? child.containerElement.$dom_clientHeight : child.containerElement.$dom_clientWidth;
+        size = stackedVertical ? child.containerElement.clientHeight : child.containerElement.clientWidth;
         size *=  otherPanelScaleMultipler;
       } else {
         size = newContainerSize;
@@ -101,9 +101,9 @@ class SplitterPanel {
     for (int i = 0; i < childContainers.length; i++) {
       var childContainer = childContainers[i];
       if (stackedVertical) {
-        childContainer.width = width;
+        childContainer.resize(width, childContainer.height);
       } else {
-        childContainer.height = height;
+        childContainer.resize(childContainer.width, height);
       }
       
       if (i < spiltterBars.length) {
@@ -127,14 +127,14 @@ class SplitterPanel {
     });
     
     // Get the thickness of the bar
-    int barSize = stackedVertical ? spiltterBars[0].barElement.$dom_clientHeight : spiltterBars[0].barElement.$dom_clientWidth;
+    int barSize = stackedVertical ? spiltterBars[0].barElement.clientHeight : spiltterBars[0].barElement.clientWidth;
     
     // Find out how much space existing child containers will take after being resized (excluding the splitter bars)  
     int targetTotalChildPanelSize = stackedVertical ? height : width;
     targetTotalChildPanelSize -= barSize * spiltterBars.length;
     
     // Get the scale multiplier 
-    totalChildPanelSize = Math.max(totalChildPanelSize, 1);
+    totalChildPanelSize = max(totalChildPanelSize, 1);
     num scaleMultiplier = targetTotalChildPanelSize / totalChildPanelSize;
     
     // Update the size with this multiplier
@@ -142,8 +142,8 @@ class SplitterPanel {
     for (int i = 0; i < childContainers.length; i++) {
       var child = childContainers[i];
       int original = stackedVertical ? 
-          child.containerElement.$dom_clientHeight : 
-          child.containerElement.$dom_clientWidth;
+          child.containerElement.clientHeight : 
+          child.containerElement.clientWidth;
 
       int newSize = (original * scaleMultiplier).toInt();
       updatedTotalChildPanelSize += newSize;

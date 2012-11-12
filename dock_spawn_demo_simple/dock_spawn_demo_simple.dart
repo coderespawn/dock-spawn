@@ -33,8 +33,8 @@ class DockManagerDemo {
     
     // Dock the panels on the dock manager
     DockNode documentNode = dockManager.context.model.documentManagerNode;
-    DockNode outlineNode = dockManager.dockLeft(documentNode, outline, 0.20);
-    DockNode solutionNode = dockManager.dockFill(outlineNode, solution);
+    DockNode solutionNode = dockManager.dockLeft(documentNode, solution, 0.20);
+    DockNode outlineNode = dockManager.dockFill(solutionNode, outline);
     DockNode propertiesNode = dockManager.dockDown(outlineNode, properties, 0.6);
     DockNode outputNode = dockManager.dockDown(documentNode, output, 0.4);
     DockNode problemsNode = dockManager.dockRight(outputNode, problems, 0.40);

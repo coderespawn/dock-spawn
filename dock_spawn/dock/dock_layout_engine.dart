@@ -70,7 +70,7 @@ class DockLayoutEngine {
       
       // Set the next sibling as the active child (e.g. for a Tab host, it would select it as the active tab)
       if (parentNode.children.length > 0) {
-        DockNode nextActiveSibling = parentNode.children[Math.max(0, siblingIndex - 1)];
+        DockNode nextActiveSibling = parentNode.children[max(0, siblingIndex - 1)];
         parentNode.container.setActiveChild(nextActiveSibling.container);
       }
     }
@@ -114,12 +114,12 @@ class DockLayoutEngine {
       DockNode referenceParent = referenceNode.parent;
 
       // Get the dimensions of the reference node, for resizing later on
-      int referenceNodeWidth = referenceNode.container.containerElement.$dom_clientWidth;
-      int referenceNodeHeight = referenceNode.container.containerElement.$dom_clientHeight;
+      int referenceNodeWidth = referenceNode.container.containerElement.clientWidth;
+      int referenceNodeHeight = referenceNode.container.containerElement.clientHeight;
       
       // Get the dimensions of the reference node, for resizing later on
-      int referenceNodeParentWidth = referenceParent.container.containerElement.$dom_clientWidth;
-      int referenceNodeParentHeight = referenceParent.container.containerElement.$dom_clientHeight;
+      int referenceNodeParentWidth = referenceParent.container.containerElement.clientWidth;
+      int referenceNodeParentHeight = referenceParent.container.containerElement.clientHeight;
       
       // Replace the reference node with a new composite node with the reference and new node as it's children
       IDockContainer compositeContainer = _createDockContainer(direction, newNode, referenceNode);
@@ -157,14 +157,14 @@ class DockLayoutEngine {
     }
     
     // force resize the panel
-    int containerWidth = newNode.container.containerElement.$dom_clientWidth;
-    int containerHeight = newNode.container.containerElement.$dom_clientHeight;
+    int containerWidth = newNode.container.containerElement.clientWidth;
+    int containerHeight = newNode.container.containerElement.clientHeight;
     newNode.container.resize(containerWidth, containerHeight);
   }
   
   void _forceResizeCompositeContainer(IDockContainer container) {
-    int width = container.containerElement.$dom_clientWidth;
-    int height = container.containerElement.$dom_clientHeight;
+    int width = container.containerElement.clientWidth;
+    int height = container.containerElement.clientHeight;
     container.resize(width, height);
   }
   
@@ -198,10 +198,10 @@ class DockLayoutEngine {
       // TODO: Create a tab handle highlight to show that it's going to be docked in a tab
       Element targetElement = referenceNode.container.containerElement;
       Rectangle bounds = new Rectangle();
-      bounds.x = targetElement.$dom_offsetLeft;
-      bounds.y = targetElement.$dom_offsetTop;
-      bounds.width = targetElement.$dom_clientWidth;
-      bounds.height= targetElement.$dom_clientHeight;
+      bounds.x = targetElement.offsetLeft;
+      bounds.y = targetElement.offsetTop;
+      bounds.width = targetElement.clientWidth;
+      bounds.height= targetElement.clientHeight;
       return bounds;
     }
     
@@ -253,13 +253,13 @@ class DockLayoutEngine {
     
     Rectangle bounds = new Rectangle();
     if (direction == "vertical") {
-      bounds.x = compositeNode.container.containerElement.$dom_offsetLeft;
-      bounds.y = compositeNode.container.containerElement.$dom_offsetTop + targetPanelStart;
+      bounds.x = compositeNode.container.containerElement.offsetLeft;
+      bounds.y = compositeNode.container.containerElement.offsetTop + targetPanelStart;
       bounds.width = compositeNode.container.width; 
       bounds.height = targetPanelSize;
     } else if (direction == "horizontal") {
-      bounds.x = compositeNode.container.containerElement.$dom_offsetLeft + targetPanelStart;
-      bounds.y = compositeNode.container.containerElement.$dom_offsetTop;
+      bounds.x = compositeNode.container.containerElement.offsetLeft + targetPanelStart;
+      bounds.y = compositeNode.container.containerElement.offsetTop;
       bounds.width = targetPanelSize; 
       bounds.height = compositeNode.container.height;
     }
