@@ -1,3 +1,4 @@
+part of dock_spawn;
 
 /**
  * Manages the dock overlay buttons that are displayed over the dock manager
@@ -13,7 +14,7 @@ class DockWheel {
   
   /** The node over which the dock wheel is being displayed on */
   DockNode _activeNode;
-  DockNode get activeNode() {
+  DockNode get activeNode {
     return _activeNode;
   }
   void set activeNode(DockNode value) {
@@ -70,8 +71,8 @@ class DockWheel {
     Element element = activeNode.container.containerElement;
     int containerWidth = element.clientWidth;
     int containerHeight = element.clientHeight;
-    int baseX = (containerWidth / 2).toInt() + element.offsetLeft;
-    int baseY = (containerHeight / 2).toInt() + element.offsetTop;
+    int baseX = containerWidth ~/ 2 + element.offsetLeft;
+    int baseY = containerHeight ~/ 2 + element.offsetTop;
     elementMainWheel.style.left = "${baseX}px";
     elementMainWheel.style.top = "${baseY}px";
     

@@ -1,3 +1,4 @@
+part of dock_spawn;
 
 /**
  * A splitter panel manages the child containers inside it with splitter bars.  
@@ -89,6 +90,7 @@ class SplitterPanel {
       if (stackedVertical) {
         child.resize(child.width, size.toInt());
       } else {
+
         child.resize(size.toInt(), child.height);
       }
     });

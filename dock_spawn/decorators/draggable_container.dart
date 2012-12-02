@@ -1,3 +1,4 @@
+part of dock_spawn;
 
 class DraggableContainer implements IDockContainer {
   String containerType;
@@ -42,17 +43,17 @@ class DraggableContainer implements IDockContainer {
   void setActiveChild(IDockContainer child) {
   }
 
-  int get minimumAllowedChildNodes() { return delegate.minimumAllowedChildNodes; }
+  int get minimumAllowedChildNodes { return delegate.minimumAllowedChildNodes; }
   
-  int get width() {
+  int get width {
     return delegate.width;
   }
 
-  int get height() {
+  int get height {
     return delegate.height;
   }
 
-  String get name() {
+  String get name {
     return delegate.name;
   }
   void set name(String value) {
@@ -71,7 +72,7 @@ class DraggableContainer implements IDockContainer {
     dragHandle.on.mouseDown.remove(mouseDownHandler);
   }
   
-  Element get containerElement() {
+  Element get containerElement {
     return delegate.containerElement;
   }
   
@@ -92,14 +93,15 @@ class DraggableContainer implements IDockContainer {
     if (dialog.eventListener != null) {
       dialog.eventListener.onDialogDragStarted(dialog, event);
     }
-    window.document.body.classes.add("disable-selection");
+    
+    document.body.classes.add("disable-selection");
   }
   
   void _stopDragging(MouseEvent event) {
     if (dialog.eventListener != null) {
       dialog.eventListener.onDialogDragEnded(dialog, event);
     }
-    window.document.body.classes.remove("disable-selection");
+    document.body.classes.remove("disable-selection");
   }
 
   void onMouseMove(MouseEvent event) {

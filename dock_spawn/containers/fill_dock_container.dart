@@ -1,3 +1,4 @@
+part of dock_spawn;
 
 class FillDockContainer implements IDockContainer {
   String containerType = "fill";
@@ -5,7 +6,7 @@ class FillDockContainer implements IDockContainer {
   DockManager dockManager;
   TabHost tabHost;
   int tabOrientation = TabHost.DIRECTION_BOTTOM;
-  int get minimumAllowedChildNodes() { return 2; }
+  int get minimumAllowedChildNodes { return 2; }
   String name;
   
   FillDockContainer([int tabStripDirection = TabHost.DIRECTION_BOTTOM]) {
@@ -49,15 +50,15 @@ class FillDockContainer implements IDockContainer {
     height = state['height'];
   }
   
-  Element get containerElement() {
+  Element get containerElement {
     return element;
   }
   
-  int get width() {
+  int get width {
     return element.clientWidth;
   }
 
-  int get height() {
+  int get height {
     return element.clientHeight;
   }
 

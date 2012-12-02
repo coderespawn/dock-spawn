@@ -1,3 +1,5 @@
+part of dock_spawn;
+
 /** 
  * A tab handle represents the tab button on the tab strip
  */

@@ -1,3 +1,4 @@
+part of dock_spawn;
 
 /** 
  * The document manager is then central area of the dock layout hierarchy.  
@@ -6,7 +7,7 @@
  */
 class DocumentManagerContainer extends FillDockContainer {
 
-  int get minimumAllowedChildNodes() { return 0; }
+  int get minimumAllowedChildNodes { return 0; }
   
   DocumentManagerContainer(DockManager dockManager)
       : super(TabHost.DIRECTION_TOP)
@@ -24,6 +25,9 @@ class DocumentManagerContainer extends FillDockContainer {
     super.saveState(state);
     state['documentManager'] = true;
   }
+  
+  /** Returns the selected document tab */
+  TabPage get selectedTab => tabHost.activeTab;
 }
 
 /**

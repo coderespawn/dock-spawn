@@ -1,3 +1,4 @@
+part of dock_spawn;
 
 /**
  * Deserializes the dock layout hierarchy from JSON and creates a dock hierarhcy graph

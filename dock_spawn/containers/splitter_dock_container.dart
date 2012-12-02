@@ -1,9 +1,10 @@
+part of dock_spawn;
 
 abstract class SplitterDockContainer implements IDockContainer {
   String name;
   SplitterPanel splitterPanel;
   String containerType;
-  abstract bool get stackedVertical();
+  bool get stackedVertical;
   
   SplitterDockContainer(this.name, List<IDockContainer> childContainers) {
     splitterPanel = new SplitterPanel(childContainers, stackedVertical);
@@ -13,7 +14,7 @@ abstract class SplitterDockContainer implements IDockContainer {
     splitterPanel.resize(_width, _height);
   }
 
-  int get minimumAllowedChildNodes() { return 2; }
+  int get minimumAllowedChildNodes { return 2; }
   
   void performLayout(List<IDockContainer> childContainers) {
     splitterPanel.performLayout(childContainers);
@@ -46,15 +47,15 @@ abstract class SplitterDockContainer implements IDockContainer {
     resize(_width, _height);
   }
   
-  Element get containerElement() {
+  Element get containerElement {
     return splitterPanel.panelElement;
   }
 
-  int get width() {
+  int get width {
     return splitterPanel.panelElement.clientWidth;
   }
   
-  int get height() {
+  int get height {
     return splitterPanel.panelElement.clientHeight;
   }
 

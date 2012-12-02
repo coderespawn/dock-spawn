@@ -1,3 +1,4 @@
+part of dock_spawn;
 
 /**
  * Decorates a dock container with resizer handles around its base element
@@ -23,7 +24,7 @@ class ResizableContainer implements IDockContainer {
   void setActiveChild(IDockContainer child) {
   }
 
-  int get minimumAllowedChildNodes() { return delegate.minimumAllowedChildNodes; }
+  int get minimumAllowedChildNodes { return delegate.minimumAllowedChildNodes; }
   
   void _buildResizeHandles() {
     resizeHandles = new List<ResizeHandle>();
@@ -88,15 +89,15 @@ class ResizableContainer implements IDockContainer {
     delegate.loadState(state);
   }
   
-  int get width() {
+  int get width {
     return delegate.width;
   }
 
-  int get height() {
+  int get height {
     return delegate.height;
   }
 
-  String get name() {
+  String get name {
     return delegate.name;
   }
   void set name(String value) {
@@ -127,7 +128,7 @@ class ResizableContainer implements IDockContainer {
     
   }
     
-  Element get containerElement() {
+  Element get containerElement {
     return delegate.containerElement;
   }
 
@@ -144,14 +145,14 @@ class ResizableContainer implements IDockContainer {
     window.on.mouseMove.add(handle.mouseMoveHandler);
     window.on.mouseUp.add(handle.mouseUpHandler);
 
-    window.document.body.classes.add("disable-selection");
+    document.body.classes.add("disable-selection");
   }
   
   void onMouseUp(ResizeHandle handle, MouseEvent event) {
     window.on.mouseMove.remove(handle.mouseMoveHandler);
     window.on.mouseUp.remove(handle.mouseUpHandler);
 
-    window.document.body.classes.remove("disable-selection");
+    document.body.classes.remove("disable-selection");
   }
   
   

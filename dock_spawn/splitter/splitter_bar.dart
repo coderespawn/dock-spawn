@@ -1,3 +1,4 @@
+part of dock_spawn;
 
 class SplitterBar {
   IDockContainer previousContainer; // The panel to the left/top side of the bar, depending on the bar orientation
@@ -65,7 +66,7 @@ class SplitterBar {
   
   void _startDragging(MouseEvent e) {
     disableGlobalTextSelection();
-    window.document.body.classes.add("disable-selection");
+    document.body.classes.add("disable-selection");
     window.on.mouseMove.add(mouseMovedHandler);
     window.on.mouseUp.add(mouseUpHandler);
     previousMouseEvent = e;
@@ -73,7 +74,7 @@ class SplitterBar {
   
   void _stopDragging(MouseEvent e) {
     enableGlobalTextSelection();
-    window.document.body.classes.remove("disable-selection");
+    document.body.classes.remove("disable-selection");
     window.on.mouseMove.remove(mouseMovedHandler);
     window.on.mouseUp.remove(mouseUpHandler);
   }

@@ -1,3 +1,4 @@
+part of dock_spawn;
 
 class HorizontalDockContainer extends SplitterDockContainer  {
 
@@ -5,7 +6,7 @@ class HorizontalDockContainer extends SplitterDockContainer  {
     containerType = "horizontal";
   }
   
-  bool get stackedVertical() {
+  bool get stackedVertical {
     return false;
   }
 }

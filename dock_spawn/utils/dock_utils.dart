@@ -1,3 +1,4 @@
+part of dock_spawn;
 
 int getPixels(String pixels) {
   if (pixels == null) return 0;
@@ -16,11 +17,11 @@ Point2 getMousePosition(MouseEvent e, Element element) {
 }
 
 void disableGlobalTextSelection() {
-  window.document.body.classes.add("disable-selection");
+  document.body.classes.add("disable-selection");
 }
 
 void enableGlobalTextSelection() {
-  window.document.body.classes.remove("disable-selection");
+  document.body.classes.remove("disable-selection");
 }
 
 bool isPointInsideNode(int px, int py, DockNode node) {

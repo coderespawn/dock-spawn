@@ -1,3 +1,5 @@
+part of dock_spawn;
+
 /**
  * This dock container wraps the specified element on a panel frame with a title bar and close button
  */
@@ -20,7 +22,7 @@ class PanelContainer implements IDockContainer {
   
   // When the panel switches to floating mode, it is wrapped around a dialog and a reference is set
   Dialog _floatingDialog = null;
-  Dialog get floatingDialog() { 
+  Dialog get floatingDialog { 
     return _floatingDialog;
   }
   void set floatingDialog(Dialog value) {
@@ -56,9 +58,9 @@ class PanelContainer implements IDockContainer {
   void setActiveChild(IDockContainer child) { 
   }
 
-  int get minimumAllowedChildNodes() { return 0; }
+  int get minimumAllowedChildNodes { return 0; }
   
-  Element get containerElement() {
+  Element get containerElement {
     return elementPanel;
   }
   
@@ -91,7 +93,7 @@ class PanelContainer implements IDockContainer {
     
     
     // Add the panel to the body
-    window.document.body.nodes.add(elementPanel);
+    document.body.nodes.add(elementPanel);
     
     closeButtonClickedHandler = onCloseButtonClicked;
     elementButtonClose.on.click.add(closeButtonClickedHandler);
@@ -136,15 +138,16 @@ class PanelContainer implements IDockContainer {
     undockInitiator.enabled = true;
   }
   
-  int get width() {
+  int get width {
     return elementPanel.clientWidth;
   }
   
 
-  int get height() {
-    int containerHeight = elementContent.clientHeight;
-    int titleHeight = elementTitle.clientHeight;
-    return titleHeight + containerHeight;
+  int get height {
+//    int containerHeight = elementContent.clientHeight;
+//    int titleHeight = elementTitle.clientHeight;
+//    return titleHeight + containerHeight;
+    return elementPanel.clientHeight;
   }
   
   

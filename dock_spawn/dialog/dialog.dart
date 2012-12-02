@@ -1,3 +1,4 @@
+part of dock_spawn;
 
 class Dialog {
   DivElement elementDialog;
@@ -27,7 +28,7 @@ class Dialog {
     draggable = new DraggableContainer(this, panel, elementDialog, panel.elementTitle);
     resizable = new ResizableContainer(this, draggable, draggable.topLevelElement);
 
-    window.document.body.nodes.add(elementDialog);
+    document.body.nodes.add(elementDialog);
     elementDialog.classes.add("dialog-floating");
     elementDialog.classes.add("rounded-corner-top");
     panel.elementTitle.classes.add("rounded-corner-top");
@@ -77,7 +78,7 @@ class Dialog {
 }
 
 
-interface DialogEventListener {
+abstract class DialogEventListener {
   void onDialogDragStarted(Dialog sender, MouseEvent e);
   void onDialogDragEnded(Dialog sender, MouseEvent e);
 }

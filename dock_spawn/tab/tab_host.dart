@@ -1,3 +1,4 @@
+part of dock_spawn;
 
 
 /**
@@ -12,6 +13,7 @@ class TabHost {
   TabPage activeTab = null;
   List<TabPage> pages;
   CreateTabPage createTabPage;  // Factory for creating tab pages
+  OnTabChanged onTabChanged;  // Callback to notify if the active tab page has changed
 
   static const int DIRECTION_TOP = 0;
   static const int DIRECTION_BOTTOM = 1;
@@ -139,8 +141,13 @@ class TabHost {
       zIndex += zIndexDelta;
     });
     
+    // If a callback is defined, then notify it of this event
+    if (onTabChanged != null) {
+      onTabChanged(this, page);
+    }
   }
 }
 
 
 typedef TabPage CreateTabPage(TabHost tabHost, IDockContainer container);
+typedef void OnTabChanged(TabHost tabHost, TabPage tabPage);

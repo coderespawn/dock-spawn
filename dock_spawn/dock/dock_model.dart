@@ -1,3 +1,4 @@
+part of dock_spawn;
 
 /**
  * The Dock Model contains the tree hierarchy that represents the state of the 

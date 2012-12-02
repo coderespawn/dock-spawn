@@ -1,3 +1,4 @@
+part of dock_spawn;
 
 /**
  * Dock manager manages all the dock panels in a hierarchy, similar to visual studio.
@@ -12,6 +13,9 @@ class DockManager implements DialogEventListener {
   var mouseMoveHandler;
   
   DockManager(this.element) {
+    if (this.element == null) {
+      throw new DockException("Invalid Dock Manager element provided");
+    }
     mouseMoveHandler = onMouseMoved;
   }
 

@@ -1,3 +1,4 @@
+part of dock_spawn;
 
 /** Listen for undock events */
 typedef Dialog OnUndock(MouseEvent e, Point2 dragOffset);
@@ -19,7 +20,7 @@ class UndockInitiator {
   var mouseMoveHandler;
   
   bool _enabled = false;
-  bool get enabled() {
+  bool get enabled {
     return _enabled;
   }
   

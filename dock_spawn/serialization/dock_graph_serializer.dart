@@ -1,3 +1,4 @@
+part of dock_spawn;
 
 /**
  * The serializer saves / loads the state of the dock layout hierarchy

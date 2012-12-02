@@ -1,3 +1,4 @@
+part of dock_spawn;
 
 /**
  * Downloads and caches all the images used by the application during startup.

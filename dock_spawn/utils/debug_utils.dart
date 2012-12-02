@@ -1,3 +1,4 @@
+part of dock_spawn;
 
 /**
  * Prints out the dock layout hierarchy structure
