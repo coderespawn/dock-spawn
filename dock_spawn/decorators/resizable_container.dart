@@ -106,12 +106,12 @@ class ResizableContainer implements IDockContainer {
   
   void resize(int _width, int _height) {
     delegate.resize(_width, _height);
-    _adjustResizeHandles();
+    _adjustResizeHandles(_width, _height);
   }
   
-  void _adjustResizeHandles() {
+  void _adjustResizeHandles(int _width, int _height) {
     resizeHandles.forEach((handle) {
-      handle.adjustSize(topLevelElement);
+      handle.adjustSize(topLevelElement, _width, _height);
     });
   }
   
@@ -161,8 +161,6 @@ class ResizableContainer implements IDockContainer {
     if (handle.west) _resizeWest(dx);
     if (handle.north) _resizeNorth(dy);
     if (handle.south) _resizeSouth(dy);
-    
-
   }
   
   void _resizeWest(int dx) {
@@ -217,10 +215,7 @@ class ResizeHandle {
   bool south = false;
   bool corner = false;
   
-  void adjustSize(Element container) {
-    int clientWidth = container.clientWidth;
-    int clientHeight = container.clientHeight;
-    
+  void adjustSize(Element container, int clientWidth, int clientHeight) {
     if (corner) {
       if (west) element.style.left = "0px";
       if (east) element.style.left = "${clientWidth - cornerSize}px";

@@ -53,13 +53,12 @@ class FillDockContainer implements IDockContainer {
   Element get containerElement {
     return element;
   }
+
   
-  int get width {
-    return element.clientWidth;
-  }
-
-  int get height {
-    return element.clientHeight;
-  }
-
+  int get width => element.clientWidth;
+  set width(int value) => element.style.width = "${value}px";
+  
+  int get height => element.clientHeight;
+  set height(int value) => element.style.height = "${value}px";
+  
 }

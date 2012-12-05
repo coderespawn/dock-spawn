@@ -18,6 +18,7 @@ class PanelContainer implements IDockContainer {
   String containerType = "panel";
   String title = "Panel";
   String iconName = "icon-circle-arrow-right";
+  
   var closeButtonClickedHandler;
   
   // When the panel switches to floating mode, it is wrapped around a dialog and a reference is set
@@ -91,7 +92,6 @@ class PanelContainer implements IDockContainer {
     int titleHeight = elementTitle.clientHeight; 
     _setPanelDimensions(panelWidth, panelHeight + titleHeight);
     
-    
     // Add the panel to the body
     document.body.nodes.add(elementPanel);
     
@@ -138,17 +138,11 @@ class PanelContainer implements IDockContainer {
     undockInitiator.enabled = true;
   }
   
-  int get width {
-    return elementPanel.clientWidth;
-  }
+  int get width => elementPanel.clientWidth;
+  set width(int value) => elementPanel.style.width = "${value}px";
   
-
-  int get height {
-//    int containerHeight = elementContent.clientHeight;
-//    int titleHeight = elementTitle.clientHeight;
-//    return titleHeight + containerHeight;
-    return elementPanel.clientHeight;
-  }
+  int get height => elementPanel.clientHeight;
+  set height(int value) => elementPanel.style.height = "${value}px";
   
   
   void resize(int _width, int _height) {
@@ -160,7 +154,8 @@ class PanelContainer implements IDockContainer {
     elementContentHost.style.width = "${_width}px";
     elementContent.style.width = "${_width}px";
     elementPanel.style.width = "${_width}px";
-    
+
+
     int titleBarHeight = elementTitle.clientHeight;
     int contentHeight = _height - titleBarHeight;
     elementContentHost.style.height = "${contentHeight}px";
