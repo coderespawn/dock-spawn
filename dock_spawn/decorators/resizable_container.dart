@@ -132,12 +132,21 @@ class ResizableContainer implements IDockContainer {
     return delegate.containerElement;
   }
 
+  bool readyToProcessNextResize = true;
   void onMouseMoved(ResizeHandle handle, MouseEvent e) {
-    Point2 currentMousePosition = new Point2(e.pageX, e.pageY);
-    int dx = (currentMousePosition.x - previousMousePosition.x).toInt();
-    int dy = (currentMousePosition.y - previousMousePosition.y).toInt();
-    _performDrag(handle, dx, dy);
-    previousMousePosition = currentMousePosition; 
+    if (!readyToProcessNextResize) {
+      return;
+    }
+    readyToProcessNextResize = false;
+    
+    window.requestLayoutFrame(() {
+      Point2 currentMousePosition = new Point2(e.pageX, e.pageY);
+      int dx = (currentMousePosition.x - previousMousePosition.x).toInt();
+      int dy = (currentMousePosition.y - previousMousePosition.y).toInt();
+      _performDrag(handle, dx, dy);
+      previousMousePosition = currentMousePosition;
+      readyToProcessNextResize = true;
+    });
   }
   
   void onMouseDown(ResizeHandle handle, MouseEvent event) {
@@ -157,47 +166,49 @@ class ResizableContainer implements IDockContainer {
   
   
   void _performDrag(ResizeHandle handle, int dx, int dy) {
-    if (handle.east) _resizeEast(dx);
-    if (handle.west) _resizeWest(dx);
-    if (handle.north) _resizeNorth(dy);
-    if (handle.south) _resizeSouth(dy);
+    var bounds = new BoundingBox();
+    bounds.left = getPixels(topLevelElement.style.marginLeft);
+    bounds.top = getPixels(topLevelElement.style.marginTop);
+    bounds.width = topLevelElement.clientWidth;
+    bounds.height = topLevelElement.clientHeight;
+    
+    if (handle.east) _resizeEast(dx, bounds);
+    if (handle.west) _resizeWest(dx, bounds);
+    if (handle.north) _resizeNorth(dy, bounds);
+    if (handle.south) _resizeSouth(dy, bounds);
   }
   
-  void _resizeWest(int dx) {
-    _resizeContainer(dx, 0, -dx, 0);
+  void _resizeWest(int dx, BoundingBox bounds) {
+    _resizeContainer(dx, 0, -dx, 0, bounds);
   }
   
-  void _resizeEast(int dx) {
-    _resizeContainer(0, 0, dx, 0);
+  void _resizeEast(int dx, BoundingBox bounds) {
+    _resizeContainer(0, 0, dx, 0, bounds);
   }
 
-  void _resizeNorth(int dy) {
-    _resizeContainer(0, dy, 0, -dy);
+  void _resizeNorth(int dy, BoundingBox bounds) {
+    _resizeContainer(0, dy, 0, -dy, bounds);
   }
 
-  void _resizeSouth(int dy) {
-    _resizeContainer(0, 0, 0, dy);
+  void _resizeSouth(int dy, BoundingBox bounds) {
+    _resizeContainer(0, 0, 0, dy, bounds);
   }
   
-  void _resizeContainer(int leftDelta, int topDelta, int widthDelta, int heightDelta) {
-    int left = getPixels(topLevelElement.style.marginLeft);
-    int top = getPixels(topLevelElement.style.marginTop);
-    int targetWidth = topLevelElement.clientWidth;
-    int targetHeight = topLevelElement.clientHeight;
-    left += leftDelta;
-    top += topDelta;
-    targetWidth += widthDelta;
-    targetHeight += heightDelta;
+  void _resizeContainer(int leftDelta, int topDelta, int widthDelta, int heightDelta, BoundingBox bounds) {
+    bounds.left += leftDelta;
+    bounds.top += topDelta;
+    bounds.width += widthDelta;
+    bounds.height += heightDelta;
     
     int minWidth = 50;  // TODO: Move to external configuration
     int minHeight = 50;  // TODO: Move to external configuration
-    targetWidth = max(targetWidth, minWidth);
-    targetHeight = max(targetHeight, minHeight);
+    bounds.width = max(bounds.width, minWidth);
+    bounds.height = max(bounds.height, minHeight);
     
-    topLevelElement.style.marginLeft = "${left}px";
-    topLevelElement.style.marginTop = "${top}px";
+    topLevelElement.style.marginLeft = "${bounds.left}px";
+    topLevelElement.style.marginTop = "${bounds.top}px";
 
-    resize(targetWidth, targetHeight);
+    resize(bounds.width, bounds.height);
   }
 }
 

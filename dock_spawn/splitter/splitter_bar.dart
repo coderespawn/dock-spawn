@@ -10,7 +10,8 @@ class SplitterBar {
   var mouseUpHandler;
   MouseEvent previousMouseEvent;
   int minPanelSize = 50; // TODO: Get from container configuration
-  
+  Size previousContainerSize;
+  Size nextContainerSize;
   
   SplitterBar(this.previousContainer, this.nextContainer, this.stackedVertical) {
     barElement = new DivElement();
@@ -30,17 +31,31 @@ class SplitterBar {
   void onMouseUp(MouseEvent e) {
     _stopDragging(e);
   }
-
+ 
+  bool readyToProcessNextDrag = true;
   void onMouseMoved(MouseEvent e) {
-    int dx = e.pageX - previousMouseEvent.pageX;
-    int dy = e.pageY - previousMouseEvent.pageY;
-    _performDrag(dx, dy);
-    previousMouseEvent = e;
+    if (!readyToProcessNextDrag) {
+      print ("Skip");
+      return;
+    }
+    readyToProcessNextDrag = false;
+    window.requestLayoutFrame(() {
+      int dx = e.pageX - previousMouseEvent.pageX;
+      int dy = e.pageY - previousMouseEvent.pageY;
+      _performDrag(dx, dy);
+      previousMouseEvent = e;
+      readyToProcessNextDrag = true;
+    });
   }
   
   void _performDrag(int dx, int dy) {
-    int previousPanelSize = stackedVertical ? previousContainer.containerElement.clientHeight : previousContainer.containerElement.clientWidth; 
-    int nextPanelSize = stackedVertical ? nextContainer.containerElement.clientHeight : nextContainer.containerElement.clientWidth;
+    int previousWidth = previousContainer.containerElement.clientWidth;
+    int previousHeight = previousContainer.containerElement.clientHeight;
+    int nextWidth = nextContainer.containerElement.clientWidth;
+    int nextHeight = nextContainer.containerElement.clientHeight;
+    
+    int previousPanelSize = stackedVertical ? previousHeight : previousWidth; 
+    int nextPanelSize = stackedVertical ? nextHeight : nextWidth;
     int deltaMovement = stackedVertical ? dy : dx;
     int newPreviousPanelSize = previousPanelSize + deltaMovement; 
     int newNextPanelSize = nextPanelSize - deltaMovement;
@@ -55,13 +70,12 @@ class SplitterBar {
     }
 
     if (stackedVertical) {
-      previousContainer.resize(previousContainer.width, newPreviousPanelSize);
-      nextContainer.resize(nextContainer.width, newNextPanelSize);
+      previousContainer.resize(previousWidth, newPreviousPanelSize);
+      nextContainer.resize(nextWidth, newNextPanelSize);
     } else {
-      previousContainer.resize(newPreviousPanelSize, previousContainer.height);
-      nextContainer.resize(newNextPanelSize, nextContainer.height);
+      previousContainer.resize(newPreviousPanelSize, previousHeight);
+      nextContainer.resize(newNextPanelSize, nextHeight);
     }
-
   }
   
   void _startDragging(MouseEvent e) {
