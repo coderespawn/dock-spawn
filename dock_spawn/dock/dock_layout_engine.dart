@@ -171,13 +171,13 @@ class DockLayoutEngine {
   
   IDockContainer _createDockContainer(String containerType, DockNode newNode, DockNode referenceNode) {
     if (containerType == "horizontal") {
-      return new HorizontalDockContainer([newNode.container, referenceNode.container]);
+      return new HorizontalDockContainer(dockManager, [newNode.container, referenceNode.container]);
     }
     else if (containerType == "vertical") {
-      return new VerticalDockContainer([newNode.container, referenceNode.container]);
+      return new VerticalDockContainer(dockManager, [newNode.container, referenceNode.container]);
     }
     else if (containerType == "fill") {
-      return new FillDockContainer();
+      return new FillDockContainer(dockManager);
     } 
     else {
       throw new DockException("Failed to create dock container of type: $containerType");

@@ -46,10 +46,10 @@ class DockGraphDeserializer {
       container = new PanelContainer.loadFromState(containerState, dockManager);
     } 
     else if (containerType == "horizontal") {
-      container = new HorizontalDockContainer(childContainers);
+      container = new HorizontalDockContainer(dockManager, childContainers);
     }
     else if (containerType == "vertical") {
-      container = new VerticalDockContainer(childContainers);
+      container = new VerticalDockContainer(dockManager, childContainers);
     }
     else if (containerType == "fill") {
       // Check if this is a document manager
@@ -60,7 +60,7 @@ class DockGraphDeserializer {
       if (typeDocumentManager != null && typeDocumentManager) {
         container = new DocumentManagerContainer(dockManager);
       } else {
-        container = new FillDockContainer();
+        container = new FillDockContainer(dockManager);
       }
     }
     else {

@@ -40,11 +40,14 @@ class SplitterBar {
     }
     readyToProcessNextDrag = false;
     window.requestLayoutFrame(() {
+      var dockManager = previousContainer.dockManager;
+      dockManager.suspendLayout();
       int dx = e.pageX - previousMouseEvent.pageX;
       int dy = e.pageY - previousMouseEvent.pageY;
       _performDrag(dx, dy);
       previousMouseEvent = e;
       readyToProcessNextDrag = true;
+      dockManager.resumeLayout();
     });
   }
   

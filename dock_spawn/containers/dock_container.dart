@@ -4,6 +4,7 @@ part of dock_spawn;
  * Any dockable entity needs to implement this inteface
  */
 abstract class IDockContainer {
+  DockManager get dockManager;
   void resize(int _width, int _height);
   void performLayout(List<IDockContainer> children);
   void destroy();

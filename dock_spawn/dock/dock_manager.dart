@@ -11,12 +11,14 @@ class DockManager implements DialogEventListener {
   DockLayoutEngine layoutEngine;
   DivElement element;
   var mouseMoveHandler;
+  List<LayoutEventListener> layoutEventListeners;
   
   DockManager(this.element) {
     if (this.element == null) {
       throw new DockException("Invalid Dock Manager element provided");
     }
     mouseMoveHandler = onMouseMoved;
+    layoutEventListeners = new List<LayoutEventListener>();
   }
 
   void initialize() {
@@ -41,7 +43,7 @@ class DockManager implements DialogEventListener {
   void invalidate() {
     resize(element.clientWidth, element.clientHeight);
   }
-    
+  
   void resize(int width, int height) {
     element.style.width = "${width}px";
     element.style.height = "${height}px";
@@ -264,6 +266,22 @@ class DockManager implements DialogEventListener {
     
     throw new DockException("Cannot find dock node beloging to the element");
   }
+
+  void addLayoutListener(LayoutEventListener listener) {
+    layoutEventListeners.add(listener);
+  }
+
+  void removeLayoutListener(LayoutEventListener listener) {
+    layoutEventListeners.removeAt(layoutEventListeners.indexOf(listener));
+  }
+  
+  void suspendLayout() {
+    layoutEventListeners.forEach((listener) => listener.onSuspendLayout(this));
+  }
+  
+  void resumeLayout() {
+    layoutEventListeners.forEach((listener) => listener.onResumeLayout(this));
+  }
   
   String saveState() {
     var serializer = new DockGraphSerializer();
@@ -278,4 +296,13 @@ class DockManager implements DialogEventListener {
   
 }
 
-typedef void LayoutEngineDockFunction(DockNode referenceNode, DockNode newNode); 
+typedef void LayoutEngineDockFunction(DockNode referenceNode, DockNode newNode);
+
+/** 
+ * The Dock Manager notifies the listeners of layout changes so client containers that have 
+ * costly layout structures can detach and reattach themself to avoid reflow
+ */
+abstract class LayoutEventListener {
+  void onSuspendLayout(DockManager dockManager);
+  void onResumeLayout(DockManager dockManager);
+}

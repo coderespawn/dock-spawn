@@ -2,11 +2,12 @@ part of dock_spawn;
 
 abstract class SplitterDockContainer implements IDockContainer {
   String name;
+  DockManager dockManager;
   SplitterPanel splitterPanel;
   String containerType;
   bool get stackedVertical;
   
-  SplitterDockContainer(this.name, List<IDockContainer> childContainers) {
+  SplitterDockContainer(this.name, this.dockManager, List<IDockContainer> childContainers) {
     splitterPanel = new SplitterPanel(childContainers, stackedVertical);
   }
   

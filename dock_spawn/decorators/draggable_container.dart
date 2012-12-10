@@ -7,6 +7,8 @@ class DraggableContainer implements IDockContainer {
   Element dragHandle;
   Dialog dialog;
   DialogEventListener eventListener;
+
+  DockManager get dockManager => delegate.dockManager;
   
   var mouseDownHandler;
   var mouseUpHandler;

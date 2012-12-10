@@ -9,7 +9,7 @@ class FillDockContainer implements IDockContainer {
   int get minimumAllowedChildNodes { return 2; }
   String name;
   
-  FillDockContainer([int tabStripDirection = TabHost.DIRECTION_BOTTOM]) {
+  FillDockContainer(this.dockManager, [int tabStripDirection = TabHost.DIRECTION_BOTTOM]) {
     this.tabOrientation = tabStripDirection;
     name = getNextId("fill_");
     element = new DivElement();

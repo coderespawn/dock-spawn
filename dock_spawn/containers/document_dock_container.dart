@@ -10,7 +10,7 @@ class DocumentManagerContainer extends FillDockContainer {
   int get minimumAllowedChildNodes { return 0; }
   
   DocumentManagerContainer(DockManager dockManager)
-      : super(TabHost.DIRECTION_TOP)
+      : super(dockManager, TabHost.DIRECTION_TOP)
   {
     element.classes.add("document-manager");
     tabHost.createTabPage = _createDocumentTabPage;

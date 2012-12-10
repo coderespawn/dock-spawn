@@ -2,7 +2,8 @@ part of dock_spawn;
 
 class VerticalDockContainer extends SplitterDockContainer {
 
-  VerticalDockContainer(List<IDockContainer> childContainers) : super(getNextId("vertical_splitter_"), childContainers) {
+  VerticalDockContainer(DockManager dockManager, List<IDockContainer> childContainers) 
+      : super(getNextId("vertical_splitter_"), dockManager, childContainers) {
     containerType = "vertical";
     
   }

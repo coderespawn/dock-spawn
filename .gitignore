@@ -1,6 +1,16 @@
-# Game Media files #
-####################
-*.pack
+# Dart Excludes #
+#################
+*~
+*.js
+*.js_
+.children
+.project
+.gitmodules
+*.map
+*.lock
+*.tmp
+packages/
+out/
 
 # Compiled source #
 ###################
@@ -25,8 +35,6 @@
 *.rar
 *.tar
 *.zip
-*.dart.js
-*.dart.js.map
 
 # Logs and databases #
 ######################
