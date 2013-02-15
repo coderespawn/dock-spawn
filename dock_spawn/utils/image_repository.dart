@@ -37,7 +37,7 @@ class ImageRepository {
     }
     
     // Wait for all the images to download
-    return Futures.wait(futures);
+    return Future.wait(futures);
   }
 
 }

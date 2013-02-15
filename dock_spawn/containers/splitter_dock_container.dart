@@ -6,13 +6,22 @@ abstract class SplitterDockContainer implements IDockContainer {
   SplitterPanel splitterPanel;
   String containerType;
   bool get stackedVertical;
-  
+
+  int _cachedWidth;
+  int _cachedHeight;
   SplitterDockContainer(this.name, this.dockManager, List<IDockContainer> childContainers) {
     splitterPanel = new SplitterPanel(childContainers, stackedVertical);
   }
   
+  
   void resize(int _width, int _height) {
+//    if (_cachedWidth == _cachedWidth && _cachedHeight == _height) {
+//      // No need to resize
+//      return;
+//    }
     splitterPanel.resize(_width, _height);
+    _cachedWidth = _width;
+    _cachedHeight = _height;
   }
 
   int get minimumAllowedChildNodes { return 2; }
@@ -53,11 +62,19 @@ abstract class SplitterDockContainer implements IDockContainer {
   }
 
   int get width {
-    return splitterPanel.panelElement.clientWidth;
+    if (_cachedWidth == null) {
+      _cachedWidth = splitterPanel.panelElement.clientWidth;
+    }
+    return _cachedWidth;
+//    return splitterPanel.panelElement.clientWidth;
   }
   
   int get height {
-    return splitterPanel.panelElement.clientHeight;
+    if (_cachedHeight == null) {
+      _cachedHeight = splitterPanel.panelElement.clientHeight;
+    }
+    return _cachedHeight; //splitterPanel.panelElement.clientHeight;
+//    return splitterPanel.panelElement.clientHeight;
   }
 
 }

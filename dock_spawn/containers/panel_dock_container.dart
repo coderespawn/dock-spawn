@@ -76,7 +76,7 @@ class PanelContainer implements IDockContainer {
     elementPanel.nodes.add(elementTitle);
     elementTitle.nodes.add(elementTitleText);
     elementTitle.nodes.add(elementButtonClose);
-    elementButtonClose.innerHTML = '<i class="icon-remove"></i>';
+    elementButtonClose.innerHtml= '<i class="icon-remove"></i>';
     elementButtonClose.classes.add("panel-titlebar-button-close");
     elementPanel.nodes.add(elementContentHost);
 
@@ -137,16 +137,35 @@ class PanelContainer implements IDockContainer {
   void prepareForDocking() {
     undockInitiator.enabled = true;
   }
+
+  int _cachedWidth = 0;
+  int _cachedHeight = 0;
   
-  int get width => elementPanel.clientWidth;
-  set width(int value) => elementPanel.style.width = "${value}px";
+  int get width => _cachedWidth; // elementPanel.clientWidth;
+  set width(int value) {
+    if (_cachedWidth != value) {
+      _cachedWidth = value;
+      elementPanel.style.width = "${value}px";
+    }
+  }
   
-  int get height => elementPanel.clientHeight;
-  set height(int value) => elementPanel.style.height = "${value}px";
+  int get height => _cachedHeight; //elementPanel.clientHeight;
+  set height(int value) {
+    if (_cachedHeight != value) {
+      _cachedHeight = value;
+      elementPanel.style.height = "${value}px";
+    }
+  }
   
   
   void resize(int _width, int _height) {
+    if (_cachedWidth == _width && _cachedHeight == _height) {
+      // Already in the desired size
+      return;
+    }
     _setPanelDimensions(_width, _height);
+    _cachedWidth = _width;
+    _cachedHeight = _height;
   }
   
   void _setPanelDimensions(int _width, int _height) {
@@ -175,11 +194,11 @@ class PanelContainer implements IDockContainer {
   }
   
   void _updateTitle() {
-    elementTitleText.innerHTML = '<i class="$iconName"></i> $title';
+    elementTitleText.innerHtml = '<i class="$iconName"></i> $title';
   }
   
   String getRawTitle() {
-    return elementTitleText.innerHTML;
+    return elementTitleText.innerHtml;
   }
   
   void performLayout(List<IDockContainer> children) {

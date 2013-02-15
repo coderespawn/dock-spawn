@@ -39,7 +39,7 @@ class SplitterBar {
       return;
     }
     readyToProcessNextDrag = false;
-    window.requestLayoutFrame(() {
+//    window.requestLayoutFrame(() {
       var dockManager = previousContainer.dockManager;
       dockManager.suspendLayout();
       int dx = e.pageX - previousMouseEvent.pageX;
@@ -48,7 +48,7 @@ class SplitterBar {
       previousMouseEvent = e;
       readyToProcessNextDrag = true;
       dockManager.resumeLayout();
-    });
+//    });
   }
   
   void _performDrag(int dx, int dy) {

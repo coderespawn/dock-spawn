@@ -7,8 +7,8 @@ class DockGraphDeserializer {
   DockManager dockManager;
   DockGraphDeserializer(this.dockManager);
   
-  DockModel deserialize(String json) {
-    Map<String, Object> graphInfo = JSON.parse(json);
+  DockModel deserialize(String _json) {
+    Map<String, Object> graphInfo = json.parse(_json);
     DockModel model = new DockModel();
     model.rootNode = _buildGraph(graphInfo);
     return model;

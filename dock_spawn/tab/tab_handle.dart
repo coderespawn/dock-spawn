@@ -33,11 +33,11 @@ class TabHandle {
     
     PanelContainer panel = parent.container;
     String title = panel.getRawTitle();
-    elementText.innerHTML = title;
+    elementText.innerHtml = title;
     
     // Set the close button text (font awesome)
     String closeIcon = "icon-remove-sign";
-    elementCloseButton.innerHTML = '<i class="$closeIcon"></i>';
+    elementCloseButton.innerHtml = '<i class="$closeIcon"></i>';
     
     _bringToFront(elementBase);
     

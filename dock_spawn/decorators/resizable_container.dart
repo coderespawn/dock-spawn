@@ -141,7 +141,7 @@ class ResizableContainer implements IDockContainer {
     }
     readyToProcessNextResize = false;
     
-    window.requestLayoutFrame(() {
+//    window.requestLayoutFrame(() {
       dockManager.suspendLayout();
       Point2 currentMousePosition = new Point2(e.pageX, e.pageY);
       int dx = (currentMousePosition.x - previousMousePosition.x).toInt();
@@ -150,7 +150,7 @@ class ResizableContainer implements IDockContainer {
       previousMousePosition = currentMousePosition;
       readyToProcessNextResize = true;
       dockManager.resumeLayout();
-    });
+//    });
   }
   
   void onMouseDown(ResizeHandle handle, MouseEvent event) {

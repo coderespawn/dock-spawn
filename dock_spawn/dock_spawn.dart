@@ -1,8 +1,9 @@
 library dock_spawn;
 
 import 'dart:html';
+import 'dart:async';
 import 'dart:math';
-import 'dart:json';
+import 'dart:json' as json;
 import '../../core_utils/lib/core_utils.dart';  // TODO: Place in pub
 
 part 'dialog/dialog.dart';

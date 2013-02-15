@@ -7,7 +7,7 @@ class DockGraphSerializer {
 
   String serialize(DockModel model) {
     var graphInfo = _buildGraphInfo(model.rootNode);
-    return JSON.stringify(graphInfo);
+    return json.stringify(graphInfo);
   }
   
   Map<String, Object> _buildGraphInfo(DockNode node) {

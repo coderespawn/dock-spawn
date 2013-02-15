@@ -92,9 +92,9 @@ class TabHost {
     TabPage oldActiveTab = activeTab;
     activeTab = null;
     
-    List<IDockContainer> childPanels = children.filter((child) {
+    List<IDockContainer> childPanels = children.where((child) {
       return child.containerType == "panel";
-    });
+    }).toList();
     
     if (childPanels.length > 0) {
       // Rebuild new tab pages
