@@ -5,9 +5,9 @@ class SplitterBar {
   IDockContainer nextContainer;     // The panel to the right/bottom side of the bar, depending on the bar orientation
   DivElement barElement;
   bool stackedVertical;
-  var mouseMovedHandler;
-  var mouseDownHandler;
-  var mouseUpHandler;
+  StreamSubscription<MouseEvent> mouseMovedHandler;
+  StreamSubscription<MouseEvent> mouseDownHandler;
+  StreamSubscription<MouseEvent> mouseUpHandler;
   MouseEvent previousMouseEvent;
   int minPanelSize = 50; // TODO: Get from container configuration
   Size previousContainerSize;
@@ -16,12 +16,8 @@ class SplitterBar {
   SplitterBar(this.previousContainer, this.nextContainer, this.stackedVertical) {
     barElement = new DivElement();
     barElement.classes.add(stackedVertical ? "splitbar-horizontal" : "splitbar-vertical");
-
-    mouseMovedHandler = onMouseMoved;
-    mouseDownHandler = onMouseDown;
-    mouseUpHandler = onMouseUp;
     
-    barElement.on.mouseDown.add(mouseDownHandler);
+    mouseDownHandler = barElement.onMouseDown.listen(onMouseDown);
   }
 
   void onMouseDown(MouseEvent e) {
@@ -39,16 +35,14 @@ class SplitterBar {
       return;
     }
     readyToProcessNextDrag = false;
-//    window.requestLayoutFrame(() {
-      var dockManager = previousContainer.dockManager;
-      dockManager.suspendLayout();
-      int dx = e.pageX - previousMouseEvent.pageX;
-      int dy = e.pageY - previousMouseEvent.pageY;
-      _performDrag(dx, dy);
-      previousMouseEvent = e;
-      readyToProcessNextDrag = true;
-      dockManager.resumeLayout();
-//    });
+    var dockManager = previousContainer.dockManager;
+    dockManager.suspendLayout();
+    int dx = e.pageX - previousMouseEvent.pageX;
+    int dy = e.pageY - previousMouseEvent.pageY;
+    _performDrag(dx, dy);
+    previousMouseEvent = e;
+    readyToProcessNextDrag = true;
+    dockManager.resumeLayout();
   }
   
   void _performDrag(int dx, int dy) {
@@ -84,15 +78,29 @@ class SplitterBar {
   void _startDragging(MouseEvent e) {
     disableGlobalTextSelection();
     document.body.classes.add("disable-selection");
-    window.on.mouseMove.add(mouseMovedHandler);
-    window.on.mouseUp.add(mouseUpHandler);
+    if (mouseMovedHandler != null) {
+      mouseMovedHandler.cancel();
+      mouseMovedHandler = null;
+    }
+    if (mouseUpHandler != null) {
+      mouseUpHandler.cancel();
+      mouseUpHandler = null;
+    }
+    mouseMovedHandler = window.onMouseMove.listen(onMouseMoved);
+    mouseUpHandler = window.onMouseUp.listen(onMouseUp);
     previousMouseEvent = e;
   }
   
   void _stopDragging(MouseEvent e) {
     enableGlobalTextSelection();
     document.body.classes.remove("disable-selection");
-    window.on.mouseMove.remove(mouseMovedHandler);
-    window.on.mouseUp.remove(mouseUpHandler);
+    if (mouseMovedHandler != null) {
+      mouseMovedHandler.cancel();
+      mouseMovedHandler = null;
+    }
+    if (mouseUpHandler != null) {
+      mouseUpHandler.cancel();
+      mouseUpHandler = null;
+    }
   }
 }

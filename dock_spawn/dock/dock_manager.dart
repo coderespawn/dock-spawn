@@ -10,14 +10,13 @@ class DockManager implements DialogEventListener {
   DockWheel dockWheel;
   DockLayoutEngine layoutEngine;
   DivElement element;
-  var mouseMoveHandler;
+  StreamSubscription<MouseEvent> mouseMoveHandler;
   List<LayoutEventListener> layoutEventListeners;
   
   DockManager(this.element) {
     if (this.element == null) {
       throw new DockException("Invalid Dock Manager element provided");
     }
-    mouseMoveHandler = onMouseMoved;
     layoutEventListeners = new List<LayoutEventListener>();
   }
 
@@ -79,11 +78,17 @@ class DockManager implements DialogEventListener {
     dockWheel.activeNode = _findNodeOnPoint(e.pageX, e.pageY);
     dockWheel.activeDialog = sender;
     dockWheel.showWheel();
-    window.on.mouseMove.add(mouseMoveHandler);
+    if (mouseMoveHandler != null) {
+      mouseMoveHandler.cancel();
+    }
+    mouseMoveHandler = window.onMouseMove.listen(onMouseMoved);
   }
   
   void onDialogDragEnded(Dialog sender, MouseEvent e) {
-    window.on.mouseMove.remove(mouseMoveHandler);
+    if (mouseMoveHandler != null) {
+      mouseMoveHandler.cancel();
+      mouseMoveHandler = null;
+    }
     dockWheel.onDialogDropped(sender);
     dockWheel.hideWheel();
     dockWheel.activeDialog = null;

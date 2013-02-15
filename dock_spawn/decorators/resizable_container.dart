@@ -80,7 +80,7 @@ class ResizableContainer implements IDockContainer {
       onMouseUp(handle, e);
     };
 
-    handle.element.on.mouseDown.add(handle.mouseDownHandler);
+    handle.mouseDownHandlerSub = handle.element.onMouseDown.listen(handle.mouseDownHandler);
   }
 
   void saveState(Map<String, Object> state) {
@@ -155,15 +155,23 @@ class ResizableContainer implements IDockContainer {
   
   void onMouseDown(ResizeHandle handle, MouseEvent event) {
     previousMousePosition = new Point2(event.pageX, event.pageY);
-    window.on.mouseMove.add(handle.mouseMoveHandler);
-    window.on.mouseUp.add(handle.mouseUpHandler);
+    if (handle.mouseMoveHandlerSub != null) {
+      handle.mouseMoveHandlerSub.cancel();
+    }
+    if (handle.mouseUpHandlerSub != null) {
+      handle.mouseUpHandlerSub.cancel();
+    }
+    handle.mouseMoveHandlerSub = window.onMouseMove.listen(handle.mouseMoveHandler);
+    handle.mouseUpHandlerSub = window.onMouseUp.listen(handle.mouseUpHandler);
 
     document.body.classes.add("disable-selection");
   }
   
   void onMouseUp(ResizeHandle handle, MouseEvent event) {
-    window.on.mouseMove.remove(handle.mouseMoveHandler);
-    window.on.mouseUp.remove(handle.mouseUpHandler);
+    handle.mouseMoveHandlerSub.cancel();
+    handle.mouseUpHandlerSub.cancel();
+    handle.mouseMoveHandlerSub = null;
+    handle.mouseUpHandlerSub = null;
 
     document.body.classes.remove("disable-selection");
   }
@@ -224,6 +232,11 @@ class ResizeHandle {
   var mouseMoveHandler;
   var mouseDownHandler;
   var mouseUpHandler;
+  
+  StreamSubscription<MouseEvent> mouseMoveHandlerSub;
+  StreamSubscription<MouseEvent> mouseDownHandlerSub;
+  StreamSubscription<MouseEvent> mouseUpHandlerSub;
+  
   bool east = false;
   bool west = false;
   bool north = false;

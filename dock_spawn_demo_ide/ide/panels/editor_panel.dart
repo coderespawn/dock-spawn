@@ -1,3 +1,5 @@
+part of dock_spawn_demo_ide;
+
 /**
  * A custom panel that manages the Code Mirror editor control
  */

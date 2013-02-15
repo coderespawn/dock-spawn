@@ -12,8 +12,8 @@ class TabHandle {
   TabPage parent;
   var undockHandler;
 
-  var mouseClickHandler;  // Button click handler for the tab handle
-  var closeButtonHandler; // Button click handler for the close button
+  StreamSubscription<MouseEvent> mouseClickHandler;  // Button click handler for the tab handle
+  StreamSubscription<MouseEvent> closeButtonHandler; // Button click handler for the close button
   
   TabHandle(this.parent) {
     undockHandler = _performUndock;
@@ -44,17 +44,13 @@ class TabHandle {
     undockInitiator = new UndockInitiator(elementBase, undockHandler);
     undockInitiator.enabled = true;
 
-    mouseClickHandler = onMouseClicked;
-    elementBase.on.click.add(mouseClickHandler);
-    
-    closeButtonHandler = onCloseButtonClicked;
-    elementCloseButton.on.mouseDown.add(closeButtonHandler);
-    
+    mouseClickHandler = elementBase.onClick.listen(onMouseClicked);
+    closeButtonHandler = elementCloseButton.onMouseDown.listen(onCloseButtonClicked);
   }
   
   void destroy() {
-    elementBase.on.click.remove(mouseClickHandler);
-    elementCloseButton.on.mouseDown.remove(closeButtonHandler);
+    mouseClickHandler.cancel();
+    closeButtonHandler.cancel();
     elementBase.remove();
     elementCloseButton.remove();
     elementBase = null;

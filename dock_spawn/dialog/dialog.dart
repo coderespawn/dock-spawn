@@ -8,7 +8,7 @@ class Dialog {
   DialogEventListener eventListener;
   DockManager dockManager;
   static int zIndexCounter = 1000;
-  var mouseDownHandler;
+  StreamSubscription<MouseEvent> mouseDownHandler;
   
   Dialog.fromElement(String id, this.dockManager) {
     this.panel = new PanelContainer(query(id), dockManager);
@@ -33,8 +33,7 @@ class Dialog {
     elementDialog.classes.add("rounded-corner-top");
     panel.elementTitle.classes.add("rounded-corner-top");
     
-    mouseDownHandler = onMouseDown;
-    elementDialog.on.mouseDown.add(mouseDownHandler);
+    mouseDownHandler = elementDialog.onMouseDown.listen(onMouseDown);
     
     resize(panel.elementPanel.clientWidth, panel.elementPanel.clientHeight);
     bringToFront();
@@ -50,6 +49,10 @@ class Dialog {
   }
   
   void destroy() {
+    if (mouseDownHandler != null) {
+      mouseDownHandler.cancel();
+      mouseDownHandler = null;
+    }
     elementDialog.classes.remove("rounded-corner-top");
     panel.elementTitle.classes.remove("rounded-corner-top");
     elementDialog.remove();

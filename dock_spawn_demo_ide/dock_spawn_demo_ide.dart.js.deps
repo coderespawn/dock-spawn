@@ -121,4 +121,6 @@ file:///D:/dev/DartApps/dock_spawn/dock_spawn/utils/debug_utils.dart
 file:///D:/dev/DartApps/dock_spawn/dock_spawn/utils/dock_utils.dart
 file:///D:/dev/DartApps/dock_spawn/dock_spawn/utils/image_repository.dart
 file:///D:/dev/DartApps/dock_spawn/dock_spawn/utils/undock_initiator.dart
-file:///D:/dev/DartApps/dock_spawn/dock_spawn_demo_simple/dock_spawn_demo_simple.dart
+file:///D:/dev/DartApps/dock_spawn/dock_spawn_demo_ide/dock_spawn_demo_ide.dart
+file:///D:/dev/DartApps/dock_spawn/dock_spawn_demo_ide/ide/panels/editor_panel.dart
+file:///D:/dev/DartApps/dock_spawn/dock_spawn_demo_ide/ide/spawn_ide.dart

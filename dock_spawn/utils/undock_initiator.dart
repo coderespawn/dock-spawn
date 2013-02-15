@@ -15,9 +15,9 @@ class UndockInitiator {
   num thresholdPixels;
   Point2 dragStartPosition;
   
-  var mouseDownHandler;
-  var mouseUpHandler;
-  var mouseMoveHandler;
+  StreamSubscription<MouseEvent> mouseDownHandler;
+  StreamSubscription<MouseEvent> mouseUpHandler;
+  StreamSubscription<MouseEvent> mouseMoveHandler;
   
   bool _enabled = false;
   bool get enabled {
@@ -27,31 +27,42 @@ class UndockInitiator {
   void set enabled(bool value) {
     _enabled = value;
     if (_enabled) {
-      element.on.mouseDown.add(mouseDownHandler);
+      _cancelSubscription(mouseDownHandler);
+      mouseDownHandler = element.onMouseDown.listen(onMouseDown);
     } else {
-      element.on.mouseDown.remove(mouseDownHandler);
-      window.on.mouseUp.remove(mouseUpHandler);
-      window.on.mouseMove.remove(mouseMoveHandler);
+      _cancelSubscription(mouseDownHandler);
+      _cancelSubscription(mouseUpHandler);
+      _cancelSubscription(mouseMoveHandler);
+      mouseDownHandler = null;
+      mouseUpHandler = null;
+      mouseMoveHandler = null;
     }
   }
   
   UndockInitiator(this.element, this.listener, [this.thresholdPixels = 10]) {
-    mouseDownHandler = onMouseDown;
-    mouseUpHandler = onMouseUp;
-    mouseMoveHandler = onMouseMove;
+  }
+  
+  void _cancelSubscription(StreamSubscription sub) {
+    if (sub != null) {
+      sub.cancel();
+    }
   }
   
   void onMouseDown(MouseEvent e) {
     // Make sure we dont do this on floating dialogs
     if (enabled) {
-      window.on.mouseUp.add(mouseUpHandler);
-      window.on.mouseMove.add(mouseMoveHandler);
+      _cancelSubscription(mouseUpHandler);
+      _cancelSubscription(mouseMoveHandler);
+      mouseUpHandler = window.onMouseUp.listen(onMouseUp);
+      mouseMoveHandler = window.onMouseMove.listen(onMouseMove);
       dragStartPosition = new Point2(e.pageX, e.pageY);
     }
   }
   void onMouseUp(MouseEvent e) {
-    window.on.mouseUp.remove(mouseUpHandler);
-    window.on.mouseMove.remove(mouseMoveHandler);
+    _cancelSubscription(mouseUpHandler);
+    _cancelSubscription(mouseMoveHandler);
+    mouseUpHandler = null;
+    mouseMoveHandler = null;
   }
   void onMouseMove(MouseEvent e) {
     Point2 position = new Point2(e.pageX, e.pageY);

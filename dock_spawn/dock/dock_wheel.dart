@@ -214,8 +214,6 @@ class DockWheelItem {
   DockWheel wheel;
   String hoverIconClass;
   var mouseOverHandler;
-  var mouseOutHandler;
-  var mouseUpHandler;
   bool active = false;    // Becomes active when the mouse is hovered over it
   
   DockWheelItem(this.wheel, this.id) {
@@ -226,10 +224,8 @@ class DockWheelItem {
     element.classes.add("dock-wheel-$wheelType");
     element.classes.add("dock-wheel-$wheelType-icon");
     hoverIconClass = "dock-wheel-$wheelType-icon-hover";
-    mouseOverHandler = onMouseMoved;
-    mouseOutHandler = onMouseOut;
-    element.on.mouseOver.add(mouseOverHandler);
-    element.on.mouseOut.add(mouseOutHandler);
+    element.onMouseOver.listen(onMouseMoved);
+    element.onMouseOut.listen(onMouseOut);
   }
 
   void onMouseMoved(MouseEvent e) {

@@ -19,7 +19,7 @@ class PanelContainer implements IDockContainer {
   String title = "Panel";
   String iconName = "icon-circle-arrow-right";
   
-  var closeButtonClickedHandler;
+  StreamSubscription<MouseEvent> closeButtonClickedHandler;
   
   // When the panel switches to floating mode, it is wrapped around a dialog and a reference is set
   Dialog _floatingDialog = null;
@@ -95,8 +95,7 @@ class PanelContainer implements IDockContainer {
     // Add the panel to the body
     document.body.nodes.add(elementPanel);
     
-    closeButtonClickedHandler = onCloseButtonClicked;
-    elementButtonClose.on.click.add(closeButtonClickedHandler);
+    closeButtonClickedHandler = elementButtonClose.onClick.listen(onCloseButtonClicked);
     
     elementContent.remove();
     elementContentHost.nodes.add(elementContent);
@@ -114,7 +113,9 @@ class PanelContainer implements IDockContainer {
 
   void destroy() {
     elementPanel.remove();
-    elementButtonClose.on.click.remove(closeButtonClickedHandler);
+    if (closeButtonClickedHandler != null) {
+      closeButtonClickedHandler.cancel();
+    }
   }
   
   /**

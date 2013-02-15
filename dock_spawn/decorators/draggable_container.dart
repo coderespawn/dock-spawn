@@ -10,21 +10,17 @@ class DraggableContainer implements IDockContainer {
 
   DockManager get dockManager => delegate.dockManager;
   
-  var mouseDownHandler;
-  var mouseUpHandler;
-  var mouseMoveHandler;
+  StreamSubscription<MouseEvent> mouseDownHandler;
+  StreamSubscription<MouseEvent> mouseUpHandler;
+  StreamSubscription<MouseEvent> mouseMoveHandler;
   
   Point2 dragOffset;
   Point2 previousMousePosition;
   
   DraggableContainer(this.dialog, this.delegate, this.topLevelElement, this.dragHandle) {
     containerType = delegate.containerType;
-    
-    mouseDownHandler = onMouseDown;
-    mouseUpHandler = onMouseUp;
-    mouseMoveHandler = onMouseMove;
-    
-    dragHandle.on.mouseDown.add(mouseDownHandler);
+        
+    mouseDownHandler = dragHandle.onMouseDown.listen(onMouseDown);
     topLevelElement.style.marginLeft = "${topLevelElement.offsetLeft}";
     topLevelElement.style.marginTop = "${topLevelElement.offsetTop}";
   }
@@ -71,7 +67,7 @@ class DraggableContainer implements IDockContainer {
   }
   
   void removeDecorator() {
-    dragHandle.on.mouseDown.remove(mouseDownHandler);
+    mouseDownHandler.cancel();
   }
   
   Element get containerElement {
@@ -81,14 +77,25 @@ class DraggableContainer implements IDockContainer {
   void onMouseDown(MouseEvent event) {
     _startDragging(event);
     previousMousePosition = new Point2(event.pageX, event.pageY);
-    window.on.mouseMove.add(mouseMoveHandler);
-    window.on.mouseUp.add(mouseUpHandler);
+    if (mouseMoveHandler != null) {
+      mouseMoveHandler.cancel();
+      mouseMoveHandler = null;
+    }
+    if (mouseUpHandler != null) {
+      mouseUpHandler.cancel();
+      mouseUpHandler = null;
+    }
+    
+    mouseMoveHandler = window.onMouseMove.listen(onMouseMove);
+    mouseUpHandler = window.onMouseUp.listen(onMouseUp);
   }
   
   void onMouseUp(MouseEvent event) {
     _stopDragging(event);
-    window.on.mouseMove.remove(mouseMoveHandler);
-    window.on.mouseUp.remove(mouseUpHandler);
+    mouseMoveHandler.cancel();
+    mouseMoveHandler = null;
+    mouseUpHandler.cancel();
+    mouseUpHandler = null;
   }
   
   void _startDragging(MouseEvent event) {

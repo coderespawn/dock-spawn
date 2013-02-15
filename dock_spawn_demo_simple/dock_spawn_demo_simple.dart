@@ -15,7 +15,7 @@ class DockManagerDemo {
     dockManager.initialize();
     
     // Let the dock manager element fill in the entire screen
-    window.on.resize.add(onResized);
+    window.onResize.listen(onResized);
     onResized(null);
 
     // Convert existing elements on the page into "Panels". 

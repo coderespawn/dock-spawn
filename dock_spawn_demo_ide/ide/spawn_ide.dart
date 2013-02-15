@@ -1,4 +1,4 @@
-
+part of dock_spawn_demo_ide;
 
 class SpawnIDE {
   DockManager dockManager;

@@ -1,8 +1,10 @@
-#import('dart:html');
-#import('../dock_spawn/dock_spawn.dart');
+library dock_spawn_demo_ide;
 
-#source('ide/spawn_ide.dart');
-#source('ide/panels/editor_panel.dart');
+import 'dart:html';
+import '../dock_spawn/dock_spawn.dart';
+
+part 'ide/spawn_ide.dart';
+part 'ide/panels/editor_panel.dart';
 
 void main() {
   new SpawnIDE();

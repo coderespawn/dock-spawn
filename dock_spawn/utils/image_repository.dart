@@ -18,7 +18,7 @@ class ImageRepository {
     var completer = new Completer();
     ImageElement image = new ImageElement();
     image.src = url;
-    image.on.load.add((e) {
+    image.onLoad.listen((e) {
       completer.complete(image);
     });
     return completer.future;
