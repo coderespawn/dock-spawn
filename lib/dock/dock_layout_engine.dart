@@ -47,7 +47,8 @@ class DockLayoutEngine {
       // If the child count falls below the minimum threshold, destroy the parent and merge 
       // the children with their grandparents
       DockNode grandParent = parentNode.parent;
-      parentNode.children.forEach((otherChild) {
+//      parentNode.children.forEach((otherChild) {
+      for (var otherChild in parentNode.children) {
         if (grandParent != null) {
           // parent node is not a root node
           grandParent.addChildAfter(parentNode, otherChild);
@@ -62,7 +63,7 @@ class DockLayoutEngine {
           parentNode.container.destroy();
           dockManager.setRootNode(otherChild);
         }
-      });
+      }
     }
     else {
       // the node to be removed has 2 or more other siblings. So it is safe to continue 

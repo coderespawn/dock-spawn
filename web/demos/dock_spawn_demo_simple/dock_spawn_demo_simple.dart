@@ -1,5 +1,5 @@
 import 'dart:html';
-import '../dock_spawn/dock_spawn.dart';
+import 'package:dock_spawn/dock_spawn.dart';
 
 void main() {
   new DockManagerDemo();

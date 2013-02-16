@@ -4,7 +4,6 @@ import 'dart:html';
 import 'dart:async';
 import 'dart:math';
 import 'dart:json' as json;
-import '../../core_utils/lib/core_utils.dart';  // TODO: Place in pub
 
 part 'dialog/dialog.dart';
 part 'decorators/draggable_container.dart';
@@ -39,3 +38,5 @@ part 'utils/dock_utils.dart';
 part 'utils/image_repository.dart';
 part 'utils/debug_utils.dart';
 part 'utils/undock_initiator.dart';
+part 'utils/geometric_primitives.dart';
+part 'utils/bounding_box.dart';
