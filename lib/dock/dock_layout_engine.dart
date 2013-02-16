@@ -47,8 +47,8 @@ class DockLayoutEngine {
       // If the child count falls below the minimum threshold, destroy the parent and merge 
       // the children with their grandparents
       DockNode grandParent = parentNode.parent;
-//      parentNode.children.forEach((otherChild) {
-      for (var otherChild in parentNode.children) {
+      for (var i = 0; i < parentNode.children.length; i++) {
+        final otherChild = parentNode.children[i];
         if (grandParent != null) {
           // parent node is not a root node
           grandParent.addChildAfter(parentNode, otherChild);
