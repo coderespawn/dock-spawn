@@ -11,10 +11,24 @@ class TabPage {
   TabPage(this.host, this.container) {
     handle = new TabHandle(this);
     containerElement = container.containerElement;
+    
+    if (container is PanelContainer) {
+      PanelContainer panel = container;
+      panel.onTitleChanged = onTitleChanged;
+    }
+  }
+  
+  void onTitleChanged(IDockContainer sender, String title) {
+    handle.updateTitle();
   }
   
   void destroy() {
     handle.destroy();
+
+    if (container is PanelContainer) {
+      PanelContainer panel = container;
+      panel.onTitleChanged = null;
+    }
   }
   
   void onSelected() {

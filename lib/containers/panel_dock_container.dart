@@ -1,5 +1,6 @@
 part of dock_spawn;
 
+
 /**
  * This dock container wraps the specified element on a panel frame with a title bar and close button
  */
@@ -20,6 +21,8 @@ class PanelContainer implements IDockContainer {
   String iconName = "icon-circle-arrow-right";
   
   StreamSubscription<MouseEvent> closeButtonClickedHandler;
+  
+  TitleChangedEvent onTitleChanged;
   
   // When the panel switches to floating mode, it is wrapped around a dialog and a reference is set
   Dialog _floatingDialog = null;
@@ -187,6 +190,9 @@ class PanelContainer implements IDockContainer {
   void setTitle(String _title) {
     title = _title;
     _updateTitle();
+    if (onTitleChanged != null) {
+      onTitleChanged(this, _title);
+    }
   }
   
   void setTitleIcon(String _iconName) {
@@ -215,3 +221,5 @@ class PanelContainer implements IDockContainer {
     }
   }
 }
+
+typedef void TitleChangedEvent(IDockContainer sender, String title);

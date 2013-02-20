@@ -48,6 +48,14 @@ class TabHandle {
     closeButtonHandler = elementCloseButton.onMouseDown.listen(onCloseButtonClicked);
   }
   
+  void updateTitle() {
+    if (parent.container is PanelContainer) {
+      PanelContainer panel = parent.container;
+      String title = panel.getRawTitle();
+      elementText.innerHtml = title;
+    }
+  }
+  
   void destroy() {
     mouseClickHandler.cancel();
     closeButtonHandler.cancel();
