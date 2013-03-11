@@ -11,8 +11,8 @@ Point2 getMousePosition(MouseEvent e, Element element) {
   int parentOffsetY = element.offsetTop;
   int parentWidth = element.clientWidth;
   int parentHeight = element.clientHeight;
-  int x = e.x - parentOffsetX;
-  int y = e.y - parentOffsetY;
+  int x = e.offsetX - parentOffsetX;
+  int y = e.offsetX - parentOffsetY;
   return new Point2(x, y);
 }
 
