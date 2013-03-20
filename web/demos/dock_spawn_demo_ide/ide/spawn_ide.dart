@@ -42,7 +42,7 @@ class SpawnIDE {
   }
   
   void onResized(Event event) {
-    int headerHeight = header.clientHeight;
+    int headerHeight = header.$dom_clientHeight;
     dockManager.resize(window.innerWidth, window.innerHeight - headerHeight);
 //    dockManager.resize(600, 400);
   }
