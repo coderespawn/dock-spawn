@@ -63,7 +63,7 @@ abstract class SplitterDockContainer implements IDockContainer {
 
   int get width {
     if (_cachedWidth == null) {
-      _cachedWidth = splitterPanel.panelElement.clientWidth;
+      _cachedWidth = splitterPanel.panelElement.$dom_clientWidth;
     }
     return _cachedWidth;
 //    return splitterPanel.panelElement.clientWidth;
@@ -71,7 +71,7 @@ abstract class SplitterDockContainer implements IDockContainer {
   
   int get height {
     if (_cachedHeight == null) {
-      _cachedHeight = splitterPanel.panelElement.clientHeight;
+      _cachedHeight = splitterPanel.panelElement.$dom_clientHeight;
     }
     return _cachedHeight; //splitterPanel.panelElement.clientHeight;
 //    return splitterPanel.panelElement.clientHeight;

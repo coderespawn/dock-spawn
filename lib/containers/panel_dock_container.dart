@@ -90,9 +90,9 @@ class PanelContainer implements IDockContainer {
     elementContentHost.classes.add("panel-content");
     
     // set the size of the dialog elements based on the panel's size
-    int panelWidth = elementContent.clientWidth; 
-    int panelHeight = elementContent.clientHeight; 
-    int titleHeight = elementTitle.clientHeight; 
+    int panelWidth = elementContent.$dom_clientWidth; 
+    int panelHeight = elementContent.$dom_clientHeight; 
+    int titleHeight = elementTitle.$dom_clientHeight; 
     _setPanelDimensions(panelWidth, panelHeight + titleHeight);
     
     // Add the panel to the body
@@ -179,7 +179,7 @@ class PanelContainer implements IDockContainer {
     elementPanel.style.width = "${_width}px";
 
 
-    int titleBarHeight = elementTitle.clientHeight;
+    int titleBarHeight = elementTitle.$dom_clientHeight;
     int contentHeight = _height - titleBarHeight;
     elementContentHost.style.height = "${contentHeight}px";
     elementContent.style.height = "${contentHeight}px";

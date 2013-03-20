@@ -37,8 +37,8 @@ class SplitterBar {
     readyToProcessNextDrag = false;
     var dockManager = previousContainer.dockManager;
     dockManager.suspendLayout();
-    int dx = e.pageX - previousMouseEvent.pageX;
-    int dy = e.pageY - previousMouseEvent.pageY;
+    int dx = e.$dom_pageX - previousMouseEvent.$dom_pageX;
+    int dy = e.$dom_pageY - previousMouseEvent.$dom_pageY;
     _performDrag(dx, dy);
     previousMouseEvent = e;
     readyToProcessNextDrag = true;
@@ -46,10 +46,10 @@ class SplitterBar {
   }
   
   void _performDrag(int dx, int dy) {
-    int previousWidth = previousContainer.containerElement.clientWidth;
-    int previousHeight = previousContainer.containerElement.clientHeight;
-    int nextWidth = nextContainer.containerElement.clientWidth;
-    int nextHeight = nextContainer.containerElement.clientHeight;
+    int previousWidth = previousContainer.containerElement.$dom_clientWidth;
+    int previousHeight = previousContainer.containerElement.$dom_clientHeight;
+    int nextWidth = nextContainer.containerElement.$dom_clientWidth;
+    int nextHeight = nextContainer.containerElement.$dom_clientHeight;
     
     int previousPanelSize = stackedVertical ? previousHeight : previousWidth; 
     int nextPanelSize = stackedVertical ? nextHeight : nextWidth;

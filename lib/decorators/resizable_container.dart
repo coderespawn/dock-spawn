@@ -18,8 +18,8 @@ class ResizableContainer implements IDockContainer {
   
   ResizableContainer(this.dialog, this.delegate, this.topLevelElement) {
     containerType = delegate.containerType;
-    topLevelElement.style.marginLeft = "${topLevelElement.offsetLeft}";
-    topLevelElement.style.marginTop = "${topLevelElement.offsetTop}";
+    topLevelElement.style.marginLeft = "${topLevelElement.$dom_offsetLeft}";
+    topLevelElement.style.marginTop = "${topLevelElement.$dom_offsetTop}";
     _buildResizeHandles();
   }
   
@@ -143,7 +143,7 @@ class ResizableContainer implements IDockContainer {
     
 //    window.requestLayoutFrame(() {
       dockManager.suspendLayout();
-      Point2 currentMousePosition = new Point2(e.pageX, e.pageY);
+      Point2 currentMousePosition = new Point2(e.$dom_pageX, e.$dom_pageY);
       int dx = (currentMousePosition.x - previousMousePosition.x).toInt();
       int dy = (currentMousePosition.y - previousMousePosition.y).toInt();
       _performDrag(handle, dx, dy);
@@ -154,7 +154,7 @@ class ResizableContainer implements IDockContainer {
   }
   
   void onMouseDown(ResizeHandle handle, MouseEvent event) {
-    previousMousePosition = new Point2(event.pageX, event.pageY);
+    previousMousePosition = new Point2(event.$dom_pageX, event.$dom_pageY);
     if (handle.mouseMoveHandlerSub != null) {
       handle.mouseMoveHandlerSub.cancel();
     }
@@ -181,8 +181,8 @@ class ResizableContainer implements IDockContainer {
     var bounds = new BoundingBox();
     bounds.left = getPixels(topLevelElement.style.marginLeft);
     bounds.top = getPixels(topLevelElement.style.marginTop);
-    bounds.width = topLevelElement.clientWidth;
-    bounds.height = topLevelElement.clientHeight;
+    bounds.width = topLevelElement.$dom_clientWidth;
+    bounds.height = topLevelElement.$dom_clientHeight;
     
     if (handle.east) _resizeEast(dx, bounds);
     if (handle.west) _resizeWest(dx, bounds);

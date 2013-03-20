@@ -27,7 +27,7 @@ class DockManager implements DialogEventListener {
     context.model.documentManagerNode = documentNode;
     setRootNode(context.model.rootNode);
     // Resize the layout
-    resize(element.clientWidth, element.clientHeight);
+    resize(element.$dom_clientWidth, element.$dom_clientHeight);
     dockWheel = new DockWheel(this);
     layoutEngine = new DockLayoutEngine(this);
     
@@ -40,7 +40,7 @@ class DockManager implements DialogEventListener {
   }
   
   void invalidate() {
-    resize(element.clientWidth, element.clientHeight);
+    resize(element.$dom_clientWidth, element.$dom_clientHeight);
   }
   
   void resize(int width, int height) {
@@ -75,7 +75,7 @@ class DockManager implements DialogEventListener {
   
 
   void onDialogDragStarted(Dialog sender, MouseEvent e) {
-    dockWheel.activeNode = _findNodeOnPoint(e.pageX, e.pageY);
+    dockWheel.activeNode = _findNodeOnPoint(e.$dom_pageX, e.$dom_pageY);
     dockWheel.activeDialog = sender;
     dockWheel.showWheel();
     if (mouseMoveHandler != null) {
@@ -95,7 +95,7 @@ class DockManager implements DialogEventListener {
   }
   
   void onMouseMoved(MouseEvent e) {
-    dockWheel.activeNode = _findNodeOnPoint(e.pageX, e.pageY);
+    dockWheel.activeNode = _findNodeOnPoint(e.$dom_pageX, e.$dom_pageY);
   }
   
   /**
@@ -218,13 +218,13 @@ class DockManager implements DialogEventListener {
     var dialog = new Dialog(node.container, this);
 
     // Adjust the relative position
-    num dialogWidth = dialog.elementDialog.clientWidth;
+    num dialogWidth = dialog.elementDialog.$dom_clientWidth;
     if (dragOffset.x > dialogWidth) {
       dragOffset.x = 0.75 * dialogWidth;
     }
     dialog.setPosition(
-        event.pageX - dragOffset.x, 
-        event.pageY - dragOffset.y);
+        event.$dom_pageX - dragOffset.x, 
+        event.$dom_pageY - dragOffset.y);
     dialog.draggable.onMouseDown(event);
 
     return dialog;

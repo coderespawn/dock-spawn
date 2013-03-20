@@ -72,8 +72,8 @@ class TabHost {
     hostElement.style.width = "${width}px";
     hostElement.style.height = "${height}px";
     
-    int tabHeight = tabListElement.clientHeight;
-    int separatorHeight = separatorElement.clientHeight;
+    int tabHeight = tabListElement.$dom_clientHeight;
+    int separatorHeight = separatorElement.$dom_clientHeight;
     int contentHeight = height - tabHeight - separatorHeight;
     contentElement.style.height = "${contentHeight}px";
     

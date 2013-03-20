@@ -69,20 +69,20 @@ class DockWheel {
       return;
     }
     Element element = activeNode.container.containerElement;
-    int containerWidth = element.clientWidth;
-    int containerHeight = element.clientHeight;
-    int baseX = containerWidth ~/ 2 + element.offsetLeft;
-    int baseY = containerHeight ~/ 2 + element.offsetTop;
+    int containerWidth = element.$dom_clientWidth;
+    int containerHeight = element.$dom_clientHeight;
+    int baseX = containerWidth ~/ 2 + element.$dom_offsetLeft;
+    int baseY = containerHeight ~/ 2 + element.$dom_offsetTop;
     elementMainWheel.style.left = "${baseX}px";
     elementMainWheel.style.top = "${baseY}px";
     
     // The positioning of the main dock wheel buttons is done automatically through CSS
     // Dynamically calculate the positions of the buttons on the extreme sides of the dock manager
     num sideMargin = 20;
-    num dockManagerWidth = dockManager.element.clientWidth;
-    num dockManagerHeight = dockManager.element.clientHeight;
-    num dockManagerOffsetX = dockManager.element.offsetLeft;
-    num dockManagerOffsetY = dockManager.element.offsetTop;
+    num dockManagerWidth = dockManager.element.$dom_clientWidth;
+    num dockManagerHeight = dockManager.element.$dom_clientHeight;
+    num dockManagerOffsetX = dockManager.element.$dom_offsetLeft;
+    num dockManagerOffsetY = dockManager.element.$dom_offsetTop;
 
     elementMainWheel.remove();
     elementSideWheel.remove();
@@ -98,8 +98,8 @@ class DockWheel {
   
   void _setWheelButtonPosition(String wheelId, num left, num top) {
     DockWheelItem item = wheelItems[wheelId];
-    num itemHalfWidth = item.element.clientWidth / 2;
-    num itemHalfHeight = item.element.clientHeight / 2;
+    num itemHalfWidth = item.element.$dom_clientWidth / 2;
+    num itemHalfHeight = item.element.$dom_clientHeight / 2;
     
     int x = (left - itemHalfWidth).toInt();
     int y = (top - itemHalfHeight).toInt();
