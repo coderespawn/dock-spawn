@@ -143,7 +143,7 @@ class ResizableContainer implements IDockContainer {
     
 //    window.requestLayoutFrame(() {
       dockManager.suspendLayout();
-      Point2 currentMousePosition = new Point2(e.pageX, e.pageY);
+      Point2 currentMousePosition = new Point2(e.page.x, e.page.y);
       int dx = (currentMousePosition.x - previousMousePosition.x).toInt();
       int dy = (currentMousePosition.y - previousMousePosition.y).toInt();
       _performDrag(handle, dx, dy);
@@ -154,7 +154,7 @@ class ResizableContainer implements IDockContainer {
   }
   
   void onMouseDown(ResizeHandle handle, MouseEvent event) {
-    previousMousePosition = new Point2(event.pageX, event.pageY);
+    previousMousePosition = new Point2(event.page.x, event.page.y);
     if (handle.mouseMoveHandlerSub != null) {
       handle.mouseMoveHandlerSub.cancel();
     }

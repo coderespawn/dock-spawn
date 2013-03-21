@@ -37,8 +37,8 @@ class SplitterBar {
     readyToProcessNextDrag = false;
     var dockManager = previousContainer.dockManager;
     dockManager.suspendLayout();
-    int dx = e.pageX - previousMouseEvent.pageX;
-    int dy = e.pageY - previousMouseEvent.pageY;
+    int dx = e.page.x - previousMouseEvent.page.x;
+    int dy = e.page.y - previousMouseEvent.page.y;
     _performDrag(dx, dy);
     previousMouseEvent = e;
     readyToProcessNextDrag = true;

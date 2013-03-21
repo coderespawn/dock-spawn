@@ -75,7 +75,7 @@ class DockManager implements DialogEventListener {
   
 
   void onDialogDragStarted(Dialog sender, MouseEvent e) {
-    dockWheel.activeNode = _findNodeOnPoint(e.pageX, e.pageY);
+    dockWheel.activeNode = _findNodeOnPoint(e.page.x, e.page.y);
     dockWheel.activeDialog = sender;
     dockWheel.showWheel();
     if (mouseMoveHandler != null) {
@@ -95,7 +95,7 @@ class DockManager implements DialogEventListener {
   }
   
   void onMouseMoved(MouseEvent e) {
-    dockWheel.activeNode = _findNodeOnPoint(e.pageX, e.pageY);
+    dockWheel.activeNode = _findNodeOnPoint(e.page.x, e.page.y);
   }
   
   /**
@@ -223,8 +223,8 @@ class DockManager implements DialogEventListener {
       dragOffset.x = 0.75 * dialogWidth;
     }
     dialog.setPosition(
-        event.pageX - dragOffset.x, 
-        event.pageY - dragOffset.y);
+        event.page.x - dragOffset.x, 
+        event.page.y - dragOffset.y);
     dialog.draggable.onMouseDown(event);
 
     return dialog;
