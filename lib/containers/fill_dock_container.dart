@@ -55,10 +55,10 @@ class FillDockContainer implements IDockContainer {
   }
 
   
-  int get width => element.$dom_clientWidth;
+  int get width => element.clientWidth;
   set width(int value) => element.style.width = "${value}px";
   
-  int get height => element.$dom_clientHeight;
+  int get height => element.clientHeight;
   set height(int value) => element.style.height = "${value}px";
   
 }
