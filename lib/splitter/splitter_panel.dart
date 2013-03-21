@@ -71,9 +71,9 @@ class SplitterPanel {
    * The percentage is specified in [ratio] and is between 0..1
    */ 
   void setContainerRatio(IDockContainer container, num ratio) {
-    num splitPanelSize = stackedVertical ? panelElement.clientHeight : panelElement.clientWidth;
+    num splitPanelSize = stackedVertical ? panelElement.client.height : panelElement.client.width;
     num newContainerSize = splitPanelSize * ratio;
-    int barSize = stackedVertical ? spiltterBars[0].barElement.clientHeight : spiltterBars[0].barElement.clientWidth;
+    int barSize = stackedVertical ? spiltterBars[0].barElement.client.height : spiltterBars[0].barElement.client.width;
 
     num otherPanelSizeQuota = splitPanelSize - newContainerSize - barSize * spiltterBars.length;
     num otherPanelScaleMultipler = otherPanelSizeQuota / splitPanelSize;
@@ -81,7 +81,7 @@ class SplitterPanel {
     childContainers.forEach((child) {
       num size;
       if (child != container) {
-        size = stackedVertical ? child.containerElement.clientHeight : child.containerElement.clientWidth;
+        size = stackedVertical ? child.containerElement.client.height : child.containerElement.client.width;
         size *=  otherPanelScaleMultipler;
       } else {
         size = newContainerSize;
@@ -129,7 +129,7 @@ class SplitterPanel {
     });
     
     // Get the thickness of the bar
-    int barSize = stackedVertical ? spiltterBars[0].barElement.clientHeight : spiltterBars[0].barElement.clientWidth;
+    int barSize = stackedVertical ? spiltterBars[0].barElement.client.height : spiltterBars[0].barElement.client.width;
     
     // Find out how much space existing child containers will take after being resized (excluding the splitter bars)  
     int targetTotalChildPanelSize = stackedVertical ? height : width;
@@ -144,8 +144,8 @@ class SplitterPanel {
     for (int i = 0; i < childContainers.length; i++) {
       var child = childContainers[i];
       int original = stackedVertical ? 
-          child.containerElement.clientHeight : 
-          child.containerElement.clientWidth;
+          child.containerElement.client.height : 
+          child.containerElement.client.width;
 
       int newSize = (original * scaleMultiplier).toInt();
       updatedTotalChildPanelSize += newSize;

@@ -18,8 +18,8 @@ class ResizableContainer implements IDockContainer {
   
   ResizableContainer(this.dialog, this.delegate, this.topLevelElement) {
     containerType = delegate.containerType;
-    topLevelElement.style.marginLeft = "${topLevelElement.offsetLeft}";
-    topLevelElement.style.marginTop = "${topLevelElement.offsetTop}";
+    topLevelElement.style.marginLeft = "${topLevelElement.offset.left}";
+    topLevelElement.style.marginTop = "${topLevelElement.offset.top}";
     _buildResizeHandles();
   }
   
@@ -181,8 +181,8 @@ class ResizableContainer implements IDockContainer {
     var bounds = new BoundingBox();
     bounds.left = getPixels(topLevelElement.style.marginLeft);
     bounds.top = getPixels(topLevelElement.style.marginTop);
-    bounds.width = topLevelElement.clientWidth;
-    bounds.height = topLevelElement.clientHeight;
+    bounds.width = topLevelElement.client.width;
+    bounds.height = topLevelElement.client.height;
     
     if (handle.east) _resizeEast(dx, bounds);
     if (handle.west) _resizeWest(dx, bounds);

@@ -46,10 +46,10 @@ class SplitterBar {
   }
   
   void _performDrag(int dx, int dy) {
-    int previousWidth = previousContainer.containerElement.clientWidth;
-    int previousHeight = previousContainer.containerElement.clientHeight;
-    int nextWidth = nextContainer.containerElement.clientWidth;
-    int nextHeight = nextContainer.containerElement.clientHeight;
+    int previousWidth = previousContainer.containerElement.client.width;
+    int previousHeight = previousContainer.containerElement.client.height;
+    int nextWidth = nextContainer.containerElement.client.width;
+    int nextHeight = nextContainer.containerElement.client.height;
     
     int previousPanelSize = stackedVertical ? previousHeight : previousWidth; 
     int nextPanelSize = stackedVertical ? nextHeight : nextWidth;

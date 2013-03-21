@@ -21,8 +21,8 @@ class DraggableContainer implements IDockContainer {
     containerType = delegate.containerType;
         
     mouseDownHandler = dragHandle.onMouseDown.listen(onMouseDown);
-    topLevelElement.style.marginLeft = "${topLevelElement.offsetLeft}";
-    topLevelElement.style.marginTop = "${topLevelElement.offsetTop}";
+    topLevelElement.style.marginLeft = "${topLevelElement.offset.left}";
+    topLevelElement.style.marginTop = "${topLevelElement.offset.top}";
   }
 
   void destroy() {

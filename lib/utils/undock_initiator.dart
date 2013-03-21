@@ -77,8 +77,8 @@ class UndockInitiator {
   }
   
   void _requestUndock(MouseEvent e) {
-    num dragOffsetX = dragStartPosition.x - element.offsetLeft;
-    num dragOffsetY = dragStartPosition.y - element.offsetTop;
+    num dragOffsetX = dragStartPosition.x - element.offset.left;
+    num dragOffsetY = dragStartPosition.y - element.offset.top;
     Point2 dragOffset = new Point2(dragOffsetX, dragOffsetY);
     listener(e, dragOffset);
   }

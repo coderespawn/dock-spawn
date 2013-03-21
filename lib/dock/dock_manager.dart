@@ -27,7 +27,7 @@ class DockManager implements DialogEventListener {
     context.model.documentManagerNode = documentNode;
     setRootNode(context.model.rootNode);
     // Resize the layout
-    resize(element.clientWidth, element.clientHeight);
+    resize(element.client.width, element.client.height);
     dockWheel = new DockWheel(this);
     layoutEngine = new DockLayoutEngine(this);
     
@@ -40,7 +40,7 @@ class DockManager implements DialogEventListener {
   }
   
   void invalidate() {
-    resize(element.clientWidth, element.clientHeight);
+    resize(element.client.width, element.client.height);
   }
   
   void resize(int width, int height) {
@@ -218,7 +218,7 @@ class DockManager implements DialogEventListener {
     var dialog = new Dialog(node.container, this);
 
     // Adjust the relative position
-    num dialogWidth = dialog.elementDialog.clientWidth;
+    num dialogWidth = dialog.elementDialog.client.width;
     if (dragOffset.x > dialogWidth) {
       dragOffset.x = 0.75 * dialogWidth;
     }
