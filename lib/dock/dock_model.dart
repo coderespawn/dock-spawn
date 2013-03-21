@@ -59,8 +59,8 @@ class DockNode {
     childNode.parent = this;
     
     int referenceIndex = children.indexOf(referenceNode);
-    List<DockNode> preList = children.getRange(0, referenceIndex);
-    List<DockNode> postList = children.getRange(referenceIndex + 1, children.length - (referenceIndex + 1));
+    List<DockNode> preList = children.sublist(0, referenceIndex);
+    List<DockNode> postList = children.sublist(referenceIndex + 1, children.length);
     
     children = new List<DockNode>();
     children.addAll(preList);
