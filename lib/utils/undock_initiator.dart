@@ -55,7 +55,7 @@ class UndockInitiator {
       _cancelSubscription(mouseMoveHandler);
       mouseUpHandler = window.onMouseUp.listen(onMouseUp);
       mouseMoveHandler = window.onMouseMove.listen(onMouseMove);
-      dragStartPosition = new Point2(e.pageX, e.pageY);
+      dragStartPosition = new Point2(e.page.x, e.page.y);
     }
   }
   void onMouseUp(MouseEvent e) {
@@ -65,7 +65,7 @@ class UndockInitiator {
     mouseMoveHandler = null;
   }
   void onMouseMove(MouseEvent e) {
-    Point2 position = new Point2(e.pageX, e.pageY);
+    Point2 position = new Point2(e.page.x, e.page.y);
     num dx = position.x - dragStartPosition.x;
     num dy = position.y - dragStartPosition.y;
     num distance = sqrt(dx * dx + dy * dy);
@@ -77,8 +77,8 @@ class UndockInitiator {
   }
   
   void _requestUndock(MouseEvent e) {
-    num dragOffsetX = dragStartPosition.x - element.offsetLeft;
-    num dragOffsetY = dragStartPosition.y - element.offsetTop;
+    num dragOffsetX = dragStartPosition.x - element.offset.left;
+    num dragOffsetY = dragStartPosition.y - element.offset.top;
     Point2 dragOffset = new Point2(dragOffsetX, dragOffsetY);
     listener(e, dragOffset);
   }

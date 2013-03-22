@@ -20,8 +20,8 @@ class EditorPanel extends PanelContainer {
   
   void resize(int _width, int _height) {
     super.resize(_width, _height);
-    int clientWidth = elementContent.clientWidth;
-    int clientHeight = elementContent.clientHeight;
+    int clientWidth = elementContent.client.width;
+    int clientHeight = elementContent.client.height;
     
     codeMirrorBase.style.width = "${clientWidth}px";
     codeMirrorBase.style.height = "${clientHeight}px";
