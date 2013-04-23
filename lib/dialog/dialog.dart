@@ -34,7 +34,6 @@ class Dialog {
     panel.elementTitle.classes.add("rounded-corner-top");
     
     mouseDownHandler = elementDialog.onMouseDown.listen(onMouseDown);
-    
     resize(panel.elementPanel.clientWidth, panel.elementPanel.clientHeight);
     bringToFront();
   }
