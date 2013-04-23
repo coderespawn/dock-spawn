@@ -35,7 +35,7 @@ class DockNode {
   void removeChild(DockNode childNode) {
     int index = children.indexOf(childNode);
     if (index >= 0) {
-      children.removeRange(index, 1);
+      children.removeRange(index, index + 1);
     }
   }
   
