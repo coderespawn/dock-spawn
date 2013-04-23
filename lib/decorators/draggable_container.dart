@@ -21,8 +21,8 @@ class DraggableContainer implements IDockContainer {
     containerType = delegate.containerType;
         
     mouseDownHandler = dragHandle.onMouseDown.listen(onMouseDown);
-    topLevelElement.style.marginLeft = "${topLevelElement.offsetLeft}";
-    topLevelElement.style.marginTop = "${topLevelElement.offsetTop}";
+    topLevelElement.style.marginLeft = "${topLevelElement.offset.left}";
+    topLevelElement.style.marginTop = "${topLevelElement.offset.top}";
   }
 
   void destroy() {
@@ -76,7 +76,7 @@ class DraggableContainer implements IDockContainer {
   
   void onMouseDown(MouseEvent event) {
     _startDragging(event);
-    previousMousePosition = new Point2(event.pageX, event.pageY);
+    previousMousePosition = new Point2(event.page.x, event.page.y);
     if (mouseMoveHandler != null) {
       mouseMoveHandler.cancel();
       mouseMoveHandler = null;
@@ -114,7 +114,7 @@ class DraggableContainer implements IDockContainer {
   }
 
   void onMouseMove(MouseEvent event) {
-    Point2 currentMousePosition = new Point2(event.pageX, event.pageY);
+    Point2 currentMousePosition = new Point2(event.page.x, event.page.y);
     int dx = (currentMousePosition.x - previousMousePosition.x).toInt();
     int dy = (currentMousePosition.y - previousMousePosition.y).toInt();
     _performDrag(dx, dy);

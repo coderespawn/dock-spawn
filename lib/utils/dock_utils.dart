@@ -7,12 +7,12 @@ int getPixels(String pixels) {
 
 
 Point2 getMousePosition(MouseEvent e, Element element) {
-  int parentOffsetX = element.offsetLeft;
-  int parentOffsetY = element.offsetTop;
-  int parentWidth = element.clientWidth;
-  int parentHeight = element.clientHeight;
-  int x = e.offsetX - parentOffsetX;
-  int y = e.offsetX - parentOffsetY;
+  int parentOffsetX = element.offset.left;
+  int parentOffsetY = element.offset.top;
+  int parentWidth = element.client.width;
+  int parentHeight = element.client.height;
+  int x = e.offset.x - parentOffsetX;
+  int y = e.offset.x - parentOffsetY;
   return new Point2(x, y);
 }
 
@@ -26,10 +26,10 @@ void enableGlobalTextSelection() {
 
 bool isPointInsideNode(int px, int py, DockNode node) {
   Element element = node.container.containerElement;
-  int x = element.offsetLeft;
-  int y = element.offsetTop;
-  int width = element.clientWidth;
-  int height = element.clientHeight;
+  int x = element.offset.left;
+  int y = element.offset.top;
+  int width = element.client.width;
+  int height = element.client.height;
   
   return (px >= x && px <= x + width && py >= y && py <= y + height);
 }
