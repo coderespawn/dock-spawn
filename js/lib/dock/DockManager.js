@@ -310,13 +310,37 @@ dockspawn.DockManager.prototype.removeLayoutListener = function(listener)
 dockspawn.DockManager.prototype.suspendLayout = function()
 {
     var self = this;
-    this.layoutEventListeners.forEach(function(listener) { listener.onSuspendLayout(self); });
+    this.layoutEventListeners.forEach(function(listener) { 
+		if (listener.onSuspendLayout) listener.onSuspendLayout(self); 
+	});
 };
 
 dockspawn.DockManager.prototype.resumeLayout = function()
 {
     var self = this;
-    this.layoutEventListeners.forEach(function(listener) { listener.onResumeLayout(self); });
+    this.layoutEventListeners.forEach(function(listener) { 
+		if (listener.onResumeLayout) listener.onResumeLayout(self); 
+	});
+};
+
+dockspawn.DockManager.prototype.notifyOnDock = function(dockNode)
+{
+    var self = this;
+    this.layoutEventListeners.forEach(function(listener) { 
+		if (listener.onDock) {
+			listener.onDock(self, dockNode); 
+		}
+	});
+};
+
+dockspawn.DockManager.prototype.notifyOnUnDock = function(dockNode)
+{
+    var self = this;
+    this.layoutEventListeners.forEach(function(listener) { 
+		if (listener.onUndock) {
+			listener.onUndock(self, dockNode); 
+		}
+	});
 };
 
 dockspawn.DockManager.prototype.saveState = function()

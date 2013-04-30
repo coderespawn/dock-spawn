@@ -83,6 +83,7 @@ dockspawn.DockLayoutEngine.prototype.undock = function(node)
         }
     }
     this.dockManager.invalidate();
+	this.dockManager.notifyOnUnDock(node);
 };
 
 dockspawn.DockLayoutEngine.prototype._performDock = function(referenceNode, newNode, direction, insertBeforeReference)
@@ -117,7 +118,7 @@ dockspawn.DockLayoutEngine.prototype._performDock = function(referenceNode, newN
         }
 
         // Attach the root node to the dock manager's DOM
-        this.dockManager.setRootNode(compositeNode);
+		this.dockManager.setRootNode(compositeNode);
         this.dockManager.rebuildLayout(this.dockManager.context.model.rootNode);
         compositeNode.container.setActiveChild(newNode.container);
         return;
@@ -176,6 +177,8 @@ dockspawn.DockLayoutEngine.prototype._performDock = function(referenceNode, newN
     var containerWidth = newNode.container.containerElement.clientWidth;
     var containerHeight = newNode.container.containerElement.clientHeight;
     newNode.container.resize(containerWidth, containerHeight);
+	
+	this.dockManager.notifyOnDock(newNode);
 };
 
 dockspawn.DockLayoutEngine.prototype._forceResizeCompositeContainer = function(container)

@@ -2,17 +2,23 @@
 <html>
 <head>
     <title></title>
-    <link rel="stylesheet" href="css/font-awesome.css">
-    <link rel="stylesheet" href="css/dock-manager.css">
+    <link rel="stylesheet" href="../../css/font-awesome.css">
+    <link rel="stylesheet" href="../../css/dock-manager.css">
     <link rel="stylesheet" href="demo.css">
-    <script src="js/dockspawn.js" type="text/javascript"></script>
+    <script src="../../js/dockspawn.js" type="text/javascript"></script>
+	
+	<!-- Info Vis graphing lib. Used for dock tree visualization -->
+	<link type="text/css" rel="stylesheet" href="infovis/jit-base.css" />
+	<link type="text/css" rel="stylesheet" href="infovis/Spacetree.css" />
+	<script language="javascript" type="text/javascript" src="infovis/jit.js"></script>
+	<script language="javascript" type="text/javascript" src="infovis/dock_tree_vis.js"></script>
 </head>
+
 <body>
     <div class="demo-header" id="header" style="width:100%">
         <div class="demo-header-title">Dock Spawn IDE Demo [Javascript]</div>
         <div class="demo-header-description">Pull a panel out from it's title bar and dock it elsewhere</div>
     </div>
-
     <div id="my_dock_manager" class="my-dock-manager"></div>
     <div id="solution_window" caption="Solution Explorer" icon="icon-circle-arrow-right" class="solution-window">
         <ul>
@@ -32,6 +38,7 @@
     <div id="problems_window" caption="Problems" class="problems-window"></div>
     <div id="editor1_window" caption="Steering.h" class="editor1-window editor-host"></div>
     <div id="editor2_window" caption="Steering.cpp" class="editor2-window editor-host"></div>
+    <div id="infovis" caption="Dock Tree Visualizer" class="editor2-window editor-host"></div>
     <div id="output_window" caption="Output" class="output-window editor-host"></div>
     <div id="toolbox_window" caption="Toolbox" class="toolbox-window">
         <ul>
@@ -51,7 +58,6 @@
             var divDockManager = document.getElementById("my_dock_manager");
             var dockManager = new dockspawn.DockManager(divDockManager);
             dockManager.initialize();
-
             // Let the dock manager element fill in the entire screen
             var onResized = function(e)
             {
@@ -72,6 +78,7 @@
             var output = new dockspawn.PanelContainer(document.getElementById("output_window"), dockManager);
             var editor1 = new dockspawn.PanelContainer(document.getElementById("editor1_window"), dockManager);
             var editor2 = new dockspawn.PanelContainer(document.getElementById("editor2_window"), dockManager);
+            var infovis = new dockspawn.PanelContainer(document.getElementById("infovis"), dockManager);
 
             // Dock the panels on the dock manager
             var documentNode = dockManager.context.model.documentManagerNode;
@@ -83,6 +90,10 @@
             var toolboxNode = dockManager.dockRight(documentNode, toolbox, 0.20);
             var editor1Node = dockManager.dockFill(documentNode, editor1);
             var editor2Node = dockManager.dockFill(documentNode, editor2);
+            var infovisNode = dockManager.dockFill(documentNode, infovis);
+			
+			// Initialize infovis (for dock tree visualization)
+			InitDebugTreeVis(dockManager);
         }
     </script>
 

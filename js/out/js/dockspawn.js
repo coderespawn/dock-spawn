@@ -1,6 +1,6 @@
 (function()
 {
-    dockspawn = {version: "0.0.1"};
+    dockspawn = {version: "0.0.2"};
 
 /**
  * A tab handle represents the tab button on the tab strip
@@ -1121,13 +1121,37 @@ dockspawn.DockManager.prototype.removeLayoutListener = function(listener)
 dockspawn.DockManager.prototype.suspendLayout = function()
 {
     var self = this;
-    this.layoutEventListeners.forEach(function(listener) { listener.onSuspendLayout(self); });
+    this.layoutEventListeners.forEach(function(listener) { 
+		if (listener.onSuspendLayout) listener.onSuspendLayout(self); 
+	});
 };
 
 dockspawn.DockManager.prototype.resumeLayout = function()
 {
     var self = this;
-    this.layoutEventListeners.forEach(function(listener) { listener.onResumeLayout(self); });
+    this.layoutEventListeners.forEach(function(listener) { 
+		if (listener.onResumeLayout) listener.onResumeLayout(self); 
+	});
+};
+
+dockspawn.DockManager.prototype.notifyOnDock = function(dockNode)
+{
+    var self = this;
+    this.layoutEventListeners.forEach(function(listener) { 
+		if (listener.onDock) {
+			listener.onDock(self, dockNode); 
+		}
+	});
+};
+
+dockspawn.DockManager.prototype.notifyOnUnDock = function(dockNode)
+{
+    var self = this;
+    this.layoutEventListeners.forEach(function(listener) { 
+		if (listener.onUndock) {
+			listener.onUndock(self, dockNode); 
+		}
+	});
 };
 
 dockspawn.DockManager.prototype.saveState = function()
@@ -1237,6 +1261,7 @@ dockspawn.DockLayoutEngine.prototype.undock = function(node)
         }
     }
     this.dockManager.invalidate();
+	this.dockManager.notifyOnUnDock(node);
 };
 
 dockspawn.DockLayoutEngine.prototype._performDock = function(referenceNode, newNode, direction, insertBeforeReference)
@@ -1271,7 +1296,7 @@ dockspawn.DockLayoutEngine.prototype._performDock = function(referenceNode, newN
         }
 
         // Attach the root node to the dock manager's DOM
-        this.dockManager.setRootNode(compositeNode);
+		this.dockManager.setRootNode(compositeNode);
         this.dockManager.rebuildLayout(this.dockManager.context.model.rootNode);
         compositeNode.container.setActiveChild(newNode.container);
         return;
@@ -1330,6 +1355,8 @@ dockspawn.DockLayoutEngine.prototype._performDock = function(referenceNode, newN
     var containerWidth = newNode.container.containerElement.clientWidth;
     var containerHeight = newNode.container.containerElement.clientHeight;
     newNode.container.resize(containerWidth, containerHeight);
+	
+	this.dockManager.notifyOnDock(newNode);
 };
 
 dockspawn.DockLayoutEngine.prototype._forceResizeCompositeContainer = function(container)
