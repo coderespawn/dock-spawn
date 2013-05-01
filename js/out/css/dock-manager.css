@@ -39,6 +39,10 @@
 	width: 100%;
 }
 
+.panel-content * {
+    margin: 0px;
+}
+
 /***************** Floating dialog box ****************/
 .dialog-floating {
 	position: absolute;
@@ -168,6 +172,10 @@
 
 .tab-content {
 	background-color: #666; 
+}
+
+.tab-content * {
+    margin: 0px;
 }
 
 .tab-handle {
