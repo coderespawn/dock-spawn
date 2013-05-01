@@ -70,7 +70,7 @@ dockspawn.TabHost.prototype.setActiveTab = function(container)
 dockspawn.TabHost.prototype.resize = function(width, height)
 {
     this.hostElement.style.width = width + "px";
-    this.hostElement.style.height = width + "px";
+    this.hostElement.style.height = height + "px";
 
     var tabHeight = this.tabListElement.clientHeight;
     var separatorHeight = this.separatorElement.clientHeight;
