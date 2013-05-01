@@ -1,17 +1,3 @@
-# Dart Excludes #
-#################
-*~
-*.js
-*.js_
-.children
-.project
-.gitmodules
-*.map
-*.lock
-*.tmp
-packages/
-out/
-
 # Compiled source #
 ###################
 *.com
@@ -48,6 +34,7 @@ out/
 ehthumbs.db
 Icon?
 Thumbs.db
+.idea/
 
 # Binary directories #
 ######################
