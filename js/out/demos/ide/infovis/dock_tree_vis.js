@@ -47,12 +47,10 @@ function getJsonTree(dockNode) {
 DockVisListener = function() {};
 DockVisListener.prototype.onDock = function(dockManager, dockNode) {
 	var rootNode = dockManager.context.model.rootNode;	// TODO: Root node is not synced properly
-	while (rootNode.parent) rootNode = rootNode.parent;
 	RebuildDebugTree(rootNode);
 };
 DockVisListener.prototype.onUndock = function(dockManager, dockNode) {
 	var rootNode = dockManager.context.model.rootNode;	// TODO: Root node is not synced properly
-	while (rootNode.parent) rootNode = rootNode.parent;
 	RebuildDebugTree(rootNode);
 };
 
