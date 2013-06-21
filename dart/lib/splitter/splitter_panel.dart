@@ -72,6 +72,8 @@ class SplitterPanel {
    */ 
   void setContainerRatio(IDockContainer container, num ratio) {
     num splitPanelSize = stackedVertical ? panelElement.client.height : panelElement.client.width;
+    if (splitPanelSize <= 0) splitPanelSize = 1;
+    
     num newContainerSize = splitPanelSize * ratio;
     int barSize = stackedVertical ? spiltterBars[0].barElement.client.height : spiltterBars[0].barElement.client.width;
 
