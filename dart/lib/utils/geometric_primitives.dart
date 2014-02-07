@@ -70,6 +70,13 @@ class Point2 {
   }
   
   String toString() => "[$x, $y]";
+  
+  int get hashCode {
+    int result = 17;
+    result = 37 * result + x.hashCode;
+    result = 37 * result + y.hashCode;
+    return result;
+  }
 }
 
 class Size {
