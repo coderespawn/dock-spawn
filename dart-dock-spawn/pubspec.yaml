@@ -4,4 +4,4 @@ author: Ali Akbar Vathi <ali.akbar@gmail.com>
 description: Dock Spawn is a powerful web based dock layout engine.  Create dockable panel windows similar to Visual Studio IDE
 homepage: http://www.dockspawn.com/
 dependencies:
-  browser: '>= 0.9.1'
+  browser: any

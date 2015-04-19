@@ -3,7 +3,7 @@ library dock_spawn;
 import 'dart:html';
 import 'dart:async';
 import 'dart:math';
-import 'dart:convert' as JSON;
+import 'dart:convert';
 
 part 'dialog/dialog.dart';
 part 'decorators/draggable_container.dart';
